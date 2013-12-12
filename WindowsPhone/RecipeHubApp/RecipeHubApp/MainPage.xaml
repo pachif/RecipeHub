@@ -1,0 +1,103 @@
+﻿<phone:PhoneApplicationPage 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:adv="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
+	x:Class="RecipeHubApp.MainPage"
+	d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+	FontSize="{StaticResource PhoneFontSizeNormal}"
+	Foreground="{StaticResource PhoneForegroundBrush}"
+	SupportedOrientations="Portrait" Orientation="Portrait"
+	shell:SystemTray.IsVisible="False">
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="RecipeItemTemplate">
+            <StackPanel Orientation="Horizontal" Tap="StackPanel_Tap" toolkit:TiltEffect.IsTiltEnabled="True">
+                <Image Source="{Binding ImageRecipe, Mode=OneWay}" Height="75" Width="75" HorizontalAlignment="Left" Stretch="UniformToFill" />
+                <StackPanel Margin="0,0,0,17" Width="432" Height="78">
+                    <TextBlock Text="{Binding ShortTitle}" TextWrapping="Wrap" Style="{StaticResource ItemTitleTextBlockStyle}" />
+                    <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        
+    </phone:PhoneApplicationPage.Resources>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Panorama control-->
+        <controls:Panorama Title="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AppNameKey}" Name="panorama" Margin="0,0,0,80">
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="PanoramaBackground.png" Opacity="0.5"/>
+            </controls:Panorama.Background>
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.RecentsKey}">
+                <Grid>
+                    <ProgressBar IsIndeterminate="True" VerticalAlignment="Top" 
+                                 Visibility="{Binding ProgressVisibility, Mode=OneWay}" />
+                    <!--Double line list with text wrapping-->
+                    <ListBox ItemsSource="{Binding RecentRecipes}" 
+                             Margin="0,0,-12,0" 
+                             ItemTemplate="{StaticResource RecipeItemTemplate}">
+                        
+                    </ListBox>
+                </Grid>
+            </controls:PanoramaItem>
+
+            <!--Panorama item two-->
+            <controls:PanoramaItem Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.HistoryKey}">
+                <!--Double line list with image placeholder and text wrapping-->
+                <ListBox ItemsSource="{Binding Path=HistoryRecipes}" Margin="0,0,-12,0" ItemTemplate="{StaticResource RecipeItemTemplate}">
+                </ListBox>
+            </controls:PanoramaItem>
+            <controls:PanoramaItem Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.SearchKey}">
+                <Grid>
+                    <ProgressBar IsIndeterminate="True" VerticalAlignment="Top" Visibility="{Binding ProgressVisibility, Mode=OneWay}" />
+                    <TextBox x:Name="SearchTextBox" Text="{Binding SearchText, Mode=TwoWay}" InputScope="Search" KeyUp="TextBox_KeyUp" VerticalAlignment="Top" />
+                    <ListBox ItemsSource="{Binding FoundRecipes}" 
+                    	Margin="0,76,-10,0" 
+                    	ItemTemplate="{StaticResource RecipeItemTemplate}" x:Name="SearchListBox" d:LayoutOverrides="Width"/>
+                </Grid>
+            </controls:PanoramaItem>
+        </controls:Panorama>
+        <!--<adv:AdControl ApplicationId="test_client" AdUnitId="Image480_80" Height="80" Width="480" VerticalAlignment="Bottom" ErrorOccurred="AdControl_ErrorOccurred" />-->
+        <adv:AdControl ApplicationId="88cab8ab-34af-42b3-a44e-aa2c9921169f" AdUnitId="10188633" Height="80" Width="480" VerticalAlignment="Bottom" />
+    </Grid>
+    <!-- IT IS BUILD IN CODE BEHIND
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" StateChanged="ApplicationBar_StateChanged">
+            
+            <shell:ApplicationBarIconButton Text="[T]" IconUri="settings.png" Click="ApplicationBarIconButton_Click" x:Name="configButton" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="Buy this App" Click="BuyAppClicked" />
+                <shell:ApplicationBarMenuItem Text="Rate this App" />
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+</phone:PhoneApplicationPage>

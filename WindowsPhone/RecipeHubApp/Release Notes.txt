@@ -1,0 +1,9 @@
+1.1.0.0
+
+- Improve Alarm section of the recipe detail
+- Integrate with report crash tool
+- Adding of French language
+
+1.0.2.0
+
+- Introducing Advertizing
