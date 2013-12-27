@@ -51,6 +51,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdDuplex.WindowsPhone">
+      <HintPath>..\libs\AdDuplex.WindowsPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="AdRotator">
+      <HintPath>..\..\..\..\..\..\..\..\MyWork\AdRotatorWP-1.0.3\lib\sl4-wp71\AdRotator.dll</HintPath>
+    </Reference>
     <Reference Include="BugSense">
       <HintPath>..\libs\BugSense.dll</HintPath>
     </Reference>
@@ -61,10 +67,12 @@
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -82,10 +90,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResx.es-ES.resx</DependentUpon>
     </Compile>
-    <Compile Include="AppResx.fr-FR.Designer.cs">
+    <Compile Include="AppResx.fr.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AppResx.fr-FR.resx</DependentUpon>
+      <DependentUpon>AppResx.fr.resx</DependentUpon>
     </Compile>
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\InverseVisibilityConverter.cs" />
@@ -145,6 +153,8 @@
     <DesignTimeOnly Include="SampleData\IngredientsDataSource\IngredientsDataSource.xsd" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="add.png" />
+    <Content Include="AddRotatorConfig.xml" />
     <Content Include="alarm-ring.wma" />
     <Content Include="settings.png" />
     <Content Include="ApplicationIcon.png">
@@ -181,9 +191,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResx.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="AppResx.fr-FR.resx">
+    <EmbeddedResource Include="AppResx.fr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResx.fr-FR.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResx.fr.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

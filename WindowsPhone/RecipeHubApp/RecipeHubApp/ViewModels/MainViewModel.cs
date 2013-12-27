@@ -72,7 +72,22 @@ namespace RecipeHubApp
             ProgressVisibility = Visibility.Visible;
             UtilisimaProvider provider = new UtilisimaProvider();
             
+            string url = string.Format("Following URL was consumed --> http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page={1}", SearchText, "0");
+            BugSense.BugSenseHandler.Instance.SendEvent(url);
             provider.SearchRecipeByName(SearchText);
+            provider.ProcessEnded += (s, e) =>
+            {
+                System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => UpdateSearchUI(e));
+            };
+        }
+
+        public void LoadSearchResponse(int page)
+        {
+            ProgressVisibility = Visibility.Visible;
+            UtilisimaProvider provider = new UtilisimaProvider();
+
+            FoundRecipes.Clear();
+            provider.SearchRecipeByName(SearchText, page);
             provider.ProcessEnded += (s, e) =>
             {
                 System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => UpdateSearchUI(e));
@@ -152,7 +167,5 @@ namespace RecipeHubApp
                 ProgressVisibility = Visibility.Collapsed;
             }
         }
-
-        
     }
 }

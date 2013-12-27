@@ -13,8 +13,9 @@
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
 	FontSize="{StaticResource PhoneFontSizeNormal}"
 	Foreground="{StaticResource PhoneForegroundBrush}"
-	SupportedOrientations="Portrait" Orientation="Portrait"
-	shell:SystemTray.IsVisible="True">
+	SupportedOrientations="Portrait" 
+    Orientation="Portrait"
+	shell:SystemTray.IsVisible="True" xmlns:my="clr-namespace:AdRotator;assembly=AdRotator">
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -41,8 +42,7 @@
         <!--Pivot Control-->
         <ProgressBar IsIndeterminate="True" Visibility="{Binding ProgressVisibility, Mode=OneWay}" />
         <Grid DataContext="{Binding CurrentRecipe}">
-
-            <controls:Pivot Title="RecipeHub" Margin="0,0,0,80">
+            <controls:Pivot Name="pivot" Title="RecipeHub" Margin="0,0,0,80">
                 <!--Pivot item Details-->
                 <controls:PivotItem Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.DetailsKey}">
                     <Grid>
@@ -99,7 +99,7 @@
                                     <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AlarmNotConfKey}" 
                                                Style="{StaticResource PhoneTextLargeStyle}"
                                                TextWrapping="Wrap" />
-                                    <HyperlinkButton Content="Configure" 
+                                    <HyperlinkButton Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.ConfigKey}" 
                                                      NavigateUri="/ConfigPage.xaml"
                                                      HorizontalAlignment="Right"/>
                                 </StackPanel>
@@ -121,8 +121,12 @@
                     </ScrollViewer>
                 </controls:PivotItem>
             </controls:Pivot>
-
-            <adv:AdControl ApplicationId="88cab8ab-34af-42b3-a44e-aa2c9921169f" AdUnitId="10188633" Height="80" Width="480" VerticalAlignment="Bottom" />
+            <my:AdRotatorControl Name="adRotatorControl1" 
+                                 VerticalAlignment="Bottom"
+                                 Width="480"
+                                 Height="80"/>
+            <!--<adv:AdControl ApplicationId="88cab8ab-34af-42b3-a44e-aa2c9921169f" AdUnitId="10336862" Height="80" Width="480" VerticalAlignment="Bottom" ErrorOccurred="AdControl_ErrorOccurred" />-->
+            
         </Grid>
 
     </Grid>

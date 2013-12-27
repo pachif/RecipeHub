@@ -5,7 +5,7 @@
 	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
 	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
 	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:adv="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI" 
+    xmlns:adduplex="clr-namespace:AdDuplex;assembly=AdDuplex.WindowsPhone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
@@ -51,7 +51,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Panorama control-->
-        <controls:Panorama Title="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AppNameKey}" Name="panorama" Margin="0,0,0,80">
+        <controls:Panorama Title="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AppNameKey}" Name="panorama" Margin="0,0,0,80" SelectionChanged="panorama_SelectionChanged">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="PanoramaBackground.png" Opacity="0.5"/>
             </controls:Panorama.Background>
@@ -87,7 +87,7 @@
             </controls:PanoramaItem>
         </controls:Panorama>
         <!--<adv:AdControl ApplicationId="test_client" AdUnitId="Image480_80" Height="80" Width="480" VerticalAlignment="Bottom" ErrorOccurred="AdControl_ErrorOccurred" />-->
-        <adv:AdControl ApplicationId="88cab8ab-34af-42b3-a44e-aa2c9921169f" AdUnitId="10188633" Height="80" Width="480" VerticalAlignment="Bottom" />
+        <adduplex:AdControl AppId="74155" Height="80" Width="480" VerticalAlignment="Bottom" />
     </Grid>
     <!-- IT IS BUILD IN CODE BEHIND
     <phone:PhoneApplicationPage.ApplicationBar>

@@ -50,6 +50,7 @@ namespace RecipeHubApp
             base.OnNavigatedTo(e);
             if (ViewModel != null)
             {
+                PageCount = 0;
                 ViewModel.UpdateHistory();
                 //- Update Background from File
                 panorama.Background = new ImageBrush
@@ -72,6 +73,9 @@ namespace RecipeHubApp
             //- Store Visits
             App.UpdateVisitHistory(ivm);
 
+            string url = string.Format("Following Page was requested --> /RecipeDetailPage.xaml?detail={0}", ivm.RecipeLink);
+            BugSense.BugSenseHandler.Instance.SendEvent(url);
+
             //- Navigate to Page
             string query = string.Format("/RecipeDetailPage.xaml?detail={0}", ivm.RecipeLink);
             var uri = new Uri(query, UriKind.Relative);
@@ -82,6 +86,7 @@ namespace RecipeHubApp
         {
             if (e.Key == Key.Enter)
             {
+                AddApplicationBarButton();
                 ViewModel.SearchText = SearchTextBox.Text;
                 ViewModel.LoadSearchResponse();
                 SearchListBox.Focus();
@@ -112,10 +117,61 @@ namespace RecipeHubApp
             ApplicationBar.MenuItems.Add(appBarMenuReview);
         }
 
-        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e)
+        private void panorama_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BugSense.BugSenseHandler.Instance.SendException(e.Error);
-            System.Diagnostics.Debug.WriteLine("AdControl error: " + e.Error.Message); 
+            if (e.AddedItems == null || e.AddedItems.Count.Equals(0)) return;
+            string header = ((PanoramaItem)e.AddedItems[0]).Header.ToString();
+            if (header != RecipeHubApp.AppResx.SearchKey)
+            {
+                // remove button
+                ApplicationBarIconButton toremove = null;
+                foreach (ApplicationBarIconButton appbarButton in ApplicationBar.Buttons)
+                {
+                    if (appbarButton.Text == AppResx.AddMoreKey) {
+                        toremove = appbarButton;
+                        break;
+                    }
+                }
+
+                ApplicationBar.Buttons.Remove(toremove);
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(ViewModel.SearchText)) {
+                    ViewModel.FoundRecipes.Clear();
+                    PageCount = 0;
+                }
+
+                if (ViewModel.FoundRecipes.Count > 0)
+                {
+                    AddApplicationBarButton();
+                }
+            }
         }
+
+        private void AddApplicationBarButton()
+        {
+            // Search Tab add the load more items button
+            var appAddMoreButton = new ApplicationBarIconButton(new Uri("/add.png", UriKind.Relative)) { Text = RecipeHubApp.AppResx.AddMoreKey };
+            appAddMoreButton.Click += OnAddMoreClick;
+            ApplicationBar.Buttons.Add(appAddMoreButton);
+        }
+
+        private void OnAddMoreClick(object sender, EventArgs e)
+        {
+            if (ViewModel.ProgressVisibility == System.Windows.Visibility.Visible)
+            {
+                MessageBox.Show(AppResx.SystemBusyMessageKey);
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(ViewModel.SearchText))
+            {   // is not busy and user performed a previous search
+                PageCount++;
+            }
+            ViewModel.LoadSearchResponse(PageCount);
+        }
+
+        public int PageCount { get; set; }
     }
 }

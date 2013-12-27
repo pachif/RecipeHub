@@ -31,6 +31,7 @@ namespace RecipeHubApp
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            
             string query = this.NavigationContext.QueryString["detail"];
             ViewModel.LoadData(query);
         }
@@ -65,6 +66,13 @@ namespace RecipeHubApp
 
             // Call Remove to unregister the scheduled action with the service.
             ScheduledActionService.Remove(name);
+        }
+
+        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e)
+        {
+            pivot.Margin = new Thickness(0);
+            BugSense.BugSenseHandler.Instance.SendException(e.Error);
+            System.Diagnostics.Debug.WriteLine("AdControl error: " + e.Error.Message);
         }
     }
 }

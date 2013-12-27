@@ -204,4 +204,10 @@
   <data name="AlarmNotFoundKey" xml:space="preserve">
     <value>La aplicacion no pudo encontrar ninguna alarma asociada a esta receta</value>
   </data>
+  <data name="AddMoreKey" xml:space="preserve">
+    <value>buscar mas</value>
+  </data>
+  <data name="SystemBusyMessageKey" xml:space="preserve">
+    <value>la aplicacion esta ocupado recuperando los resultados de la busqueda por favor espere.</value>
+  </data>
 </root>

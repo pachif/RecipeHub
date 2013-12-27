@@ -61,6 +61,15 @@ namespace RecipeHubApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to search more.
+        /// </summary>
+        public static string AddMoreKey {
+            get {
+                return ResourceManager.GetString("AddMoreKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recipe: {0}  {1}.
         /// </summary>
         public static string AlarmContentKey {
@@ -318,6 +327,15 @@ namespace RecipeHubApp {
         public static string ShareOptionsKey {
             get {
                 return ResourceManager.GetString("ShareOptionsKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System is busy doing search, please wait.
+        /// </summary>
+        public static string SystemBusyMessageKey {
+            get {
+                return ResourceManager.GetString("SystemBusyMessageKey", resourceCulture);
             }
         }
     }

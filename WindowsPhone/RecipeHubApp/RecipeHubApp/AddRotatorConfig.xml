@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AdSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CultureDescriptors>
+    <AdCultureDescriptor CultureName="default">
+      <Probabilities Probability="33" AdType="PubCenter" AppID="88cab8ab-34af-42b3-a44e-aa2c9921169f" SecondaryID="10336862" />
+      <Probabilities Probability="33" AdType="AdDuplex" AppID="74155"/>
+      <Probabilities Probability="34" AdType="AdMob" AppID="74155" />
+      <Probabilities AdType="DefaultHouseAd"/>
+    </AdCultureDescriptor>
+  </CultureDescriptors>
+</AdSettings>

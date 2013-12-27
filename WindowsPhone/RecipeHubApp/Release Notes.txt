@@ -1,9 +1,14 @@
-1.1.0.0
+1.4.0.0
+- Implement Translation engine
+- More Advertizing
+- Fixing Frech Integration
 
+1.3.0.0
+- Improvements over search engine
+- Power by better Advertising
+- Bug Fixing
+
+1.2.0.0
 - Improve Alarm section of the recipe detail
 - Integrate with report crash tool
 - Adding of French language
-
-1.0.2.0
-
-- Introducing Advertizing

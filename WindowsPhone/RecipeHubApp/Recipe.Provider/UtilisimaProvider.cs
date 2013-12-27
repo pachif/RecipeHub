@@ -35,17 +35,23 @@ namespace Recipes.Provider
 
         public void SearchRecipeByName(string name)
         {
+            SearchRecipeByName(name, 0);
+        }
+
+        public void SearchRecipeByName(string name, int page)
+        {
             string realtext = name;
             CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
             if (!currentCulture.TwoLetterISOLanguageName.ToLowerInvariant().Equals("es"))
             {
                 var translator = new TranslationProvider();
                 string languagePair = string.Format("{0}|es", currentCulture.TwoLetterISOLanguageName);
+                // we made a separate async translation to avoid screen freezing
                 translator.TranslateTextAsync(name, languagePair);
                 translator.TranslationEnded += (s, e) =>
                 {
                     realtext = (string)e.Result;
-                    string url = string.Format("http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page=1", realtext);
+                    string url = string.Format("http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page={1}", realtext, page);
                     var consumer = new WebConsumer();
                     consumer.GetUrlAsync(url);
                     consumer.ResponseEnded += new EventHandler<ResultEventArgs>(recent_ResponseEnded);
@@ -53,7 +59,7 @@ namespace Recipes.Provider
             }
             else
             {
-                string url = string.Format("http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page=1", realtext);
+                string url = string.Format("http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page={1}", realtext, page);
                 var consumer = new WebConsumer();
                 consumer.GetUrlAsync(url);
                 consumer.ResponseEnded += new EventHandler<ResultEventArgs>(recent_ResponseEnded);
@@ -237,7 +243,9 @@ namespace Recipes.Provider
                                 recipe.Category = value;
                                 break;
                             case "Porciones: ":
-                                recipe.Portions = int.Parse(value);
+                                int portions = 0;
+                                Int32.TryParse(value, out portions);
+                                recipe.Portions = portions;
                                 break;
                             case "Ingrediente Principal: ":
                                 recipe.MainIngredient = ExtractValueFromLink(value);

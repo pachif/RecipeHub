@@ -118,98 +118,98 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlarmDetectedTitle" xml:space="preserve">
-    <value>alarms</value>
+    <value>alarmes</value>
   </data>
   <data name="AlarmDetectHeaderKey" xml:space="preserve">
-    <value>Alarms Creations</value>
+    <value>Création d'alarmes</value>
   </data>
   <data name="AlarmHeaderMessage" xml:space="preserve">
-    <value>Alarm {0} | {1} minutes</value>
+    <value>Alarme {0} | {1} minutes</value>
     <comment>{0} brief descript {1} amount of minutes</comment>
   </data>
   <data name="AppNameKey" xml:space="preserve">
     <value>Recipe Hub</value>
   </data>
   <data name="AuthorKey" xml:space="preserve">
-    <value>Author</value>
+    <value>Auteur</value>
   </data>
   <data name="CategoryKey" xml:space="preserve">
-    <value>Category</value>
+    <value>Catégorie</value>
   </data>
   <data name="ConfigKey" xml:space="preserve">
-    <value>settings</value>
+    <value>paramètres</value>
   </data>
   <data name="DetailsKey" xml:space="preserve">
-    <value>details</value>
+    <value>détails</value>
   </data>
   <data name="HistoryKey" xml:space="preserve">
-    <value>history</value>
+    <value>histoire</value>
   </data>
   <data name="IngridentsKey" xml:space="preserve">
-    <value>ingredients</value>
+    <value>ingrédients</value>
   </data>
   <data name="MainIngredientKey" xml:space="preserve">
-    <value>Main Ingredient</value>
+    <value>Ingrédient principal</value>
   </data>
   <data name="PortionsKey" xml:space="preserve">
-    <value>Forks</value>
+    <value>Parties</value>
   </data>
   <data name="ProcedureKey" xml:space="preserve">
-    <value>procedure</value>
+    <value>procédure</value>
   </data>
   <data name="RecentsKey" xml:space="preserve">
     <value>recents</value>
   </data>
   <data name="RecipesKey" xml:space="preserve">
-    <value>recipes</value>
+    <value>recette</value>
   </data>
   <data name="SearchKey" xml:space="preserve">
-    <value>search</value>
+    <value>recherche</value>
   </data>
   <data name="SelectBackground" xml:space="preserve">
-    <value>Select Background</value>
+    <value>Sélectionnez Fonds</value>
   </data>
   <data name="AppTitleKey" xml:space="preserve">
     <value>Recipe Hub</value>
   </data>
   <data name="ConfirmMessage" xml:space="preserve">
-    <value>Are you sure?</value>
+    <value>Etes-vous sûr?</value>
   </data>
   <data name="DeleteHistoryKey" xml:space="preserve">
-    <value>Delete History</value>
+    <value>supprimer l'historique</value>
   </data>
   <data name="MoreKey" xml:space="preserve">
-    <value>More</value>
+    <value>plus</value>
   </data>
   <data name="ShareKey" xml:space="preserve">
-    <value>share</value>
+    <value>part</value>
   </data>
   <data name="ShareOptionsKey" xml:space="preserve">
-    <value>Share Options</value>
+    <value>options sur actions</value>
   </data>
   <data name="RateKey" xml:space="preserve">
-    <value>Rate this App</value>
+    <value>Noter cette app</value>
   </data>
   <data name="SettingsKey" xml:space="preserve">
-    <value>settings</value>
+    <value>paramètres</value>
   </data>
   <data name="AlarmContentKey" xml:space="preserve">
-    <value>Recipe: {0}  {1}</value>
+    <value>Recette: {0}  {1}</value>
     <comment>{0} recipe title</comment>
   </data>
   <data name="AlarmDescriptText" xml:space="preserve">
-    <value>Bellow will appear a list of detected alarms from recipe procedure</value>
+    <value>Ci-dessous apparaît une liste des alarmes détectées de la procédure de recette</value>
   </data>
   <data name="AlarmNotConfKey" xml:space="preserve">
-    <value>The alarm was not configured to display information here</value>
+    <value>La section Alarmes n'a pas été configuré pour afficher ces informations</value>
   </data>
   <data name="AlarmNotFoundKey" xml:space="preserve">
-    <value>The application could not find any alarm</value>
+    <value>L'application n'a pas pu trouver une alarme pour cette recette</value>
   </data>
   <data name="AddMoreKey" xml:space="preserve">
-    <value>search more</value>
+    <value>plus</value>
   </data>
   <data name="SystemBusyMessageKey" xml:space="preserve">
-    <value>System is busy doing search, please wait</value>
+    <value>l'application est occupée à récupérer les résultats de recherche s'il vous plaît attendre.</value>
   </data>
 </root>
