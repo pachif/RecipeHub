@@ -114,7 +114,8 @@ namespace RecipeHubApp.ViewModels
 
             vm.SetImageRecipeFrom(item.ImageUrl);
             CurrentRecipe = vm;
-            item.Ingridients.ForEach(ingr => CurrentRecipe.Ingridients.Add(ingr));
+            if (item.Ingridients != null)
+                item.Ingridients.ForEach(ingr => CurrentRecipe.Ingridients.Add(ingr));
             ProgressVisibility = Visibility.Collapsed;
             UpdateAlarmSection(item);
         }
@@ -130,7 +131,7 @@ namespace RecipeHubApp.ViewModels
                 if (recipe.Alarms == null || recipe.Alarms.Count == 0)
                     return;
                 //- TODO: Show not found message
-                
+
                 foreach (var alarm in recipe.Alarms)
                 {
                     var alarmVM = new AlarmItemViewModel

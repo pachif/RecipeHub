@@ -71,8 +71,12 @@ namespace RecipeHubApp
         private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e)
         {
             pivot.Margin = new Thickness(0);
-            BugSense.BugSenseHandler.Instance.SendException(e.Error);
-            System.Diagnostics.Debug.WriteLine("AdControl error: " + e.Error.Message);
+            System.Diagnostics.Debug.WriteLine(string.Format("{0} - AdControl error: {1}", DateTime.Now, e.Error.Message));
+        }
+
+        private void AdControl_AdRefreshed(object sender, EventArgs e)
+        {
+            pivot.Margin = new Thickness(0, 0, 0, 80);
         }
     }
 }

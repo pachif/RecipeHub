@@ -72,7 +72,6 @@ namespace RecipeHubApp
 
             // Phone-specific initialization
             InitializePhoneApplication();
-
             BugSenseHandler.Instance.InitAndStartSession(this, "e9243712");
         }
 

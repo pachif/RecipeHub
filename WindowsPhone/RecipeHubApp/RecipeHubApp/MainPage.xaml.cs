@@ -151,7 +151,11 @@ namespace RecipeHubApp
 
         private void AddApplicationBarButton()
         {
-            // Search Tab add the load more items button
+            // check if the button already exist
+            if (ApplicationBar.Buttons.OfType<ApplicationBarIconButton>().Any(x => x.Text == AppResx.AddMoreKey))
+                return;
+
+            // add the load more items button in ApplicationBar
             var appAddMoreButton = new ApplicationBarIconButton(new Uri("/add.png", UriKind.Relative)) { Text = RecipeHubApp.AppResx.AddMoreKey };
             appAddMoreButton.Click += OnAddMoreClick;
             ApplicationBar.Buttons.Add(appAddMoreButton);

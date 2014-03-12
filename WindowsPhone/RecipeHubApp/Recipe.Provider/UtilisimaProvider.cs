@@ -337,7 +337,6 @@ namespace Recipes.Provider
             if (alarmEx.IsMatch(source))
             {
                 recipe.Alarms = new List<BusinessObjects.Alarm>();
-                int i = 1;
                 foreach (Match match in alarmEx.Matches(source))
                 {
                     var alarm = new BusinessObjects.Alarm

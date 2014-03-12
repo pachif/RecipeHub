@@ -16,6 +16,7 @@ using Recipes.BusinessObjects;
 using Recipes.Provider;
 using System.Windows;
 using System.Globalization;
+using BugSense;
 
 namespace RecipeHubApp
 {
@@ -73,7 +74,7 @@ namespace RecipeHubApp
             UtilisimaProvider provider = new UtilisimaProvider();
             
             string url = string.Format("Following URL was consumed --> http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page={1}", SearchText, "0");
-            BugSense.BugSenseHandler.Instance.SendEvent(url);
+            BugSenseHandler.Instance.SendEvent(url);
             provider.SearchRecipeByName(SearchText);
             provider.ProcessEnded += (s, e) =>
             {

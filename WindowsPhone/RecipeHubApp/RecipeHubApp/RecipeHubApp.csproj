@@ -54,9 +54,6 @@
     <Reference Include="AdDuplex.WindowsPhone">
       <HintPath>..\libs\AdDuplex.WindowsPhone.dll</HintPath>
     </Reference>
-    <Reference Include="AdRotator">
-      <HintPath>..\..\..\..\..\..\..\..\MyWork\AdRotatorWP-1.0.3\lib\sl4-wp71\AdRotator.dll</HintPath>
-    </Reference>
     <Reference Include="BugSense">
       <HintPath>..\libs\BugSense.dll</HintPath>
     </Reference>
@@ -154,7 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="add.png" />
-    <Content Include="AddRotatorConfig.xml" />
+    <Content Include="AddRotatorConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="alarm-ring.wma" />
     <Content Include="settings.png" />
     <Content Include="ApplicationIcon.png">

@@ -207,8 +207,15 @@ namespace RecipeHubApp
         public void SetImageRecipeFrom(string url)
         {
             ImageRecipeLink = url;
-            Uri uri = new Uri(url);
-            ImageRecipe = new BitmapImage(uri);
+            Uri uri = null;
+            if (Uri.TryCreate(url, UriKind.Absolute, out uri))
+            {
+                ImageRecipe = new BitmapImage(uri);
+            }
+            else
+            {
+                ImageRecipe = new BitmapImage(new Uri("nopic.jpg", UriKind.Relative));
+            }
         }
 
         private void GoToReceipt()
