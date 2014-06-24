@@ -21,6 +21,18 @@ namespace RecipeHubApp
         {
             InitializeComponent();
             DataContext = new RecipeDetailViewModel();
+            Loaded += new RoutedEventHandler(RecipeDetailPage_Loaded);
+        }
+
+        private void RecipeDetailPage_Loaded(object sender, RoutedEventArgs ev)
+        {
+            adRotatorControl1.Log += new AdRotator.AdRotatorControl.LogHandler(adRotatorControl1_Log);
+            adRotatorControl1.Invalidate();
+        }
+
+        private void adRotatorControl1_Log(string message)
+        {
+            System.Diagnostics.Debug.WriteLine("AdRotator: " + message);
         }
 
         public RecipeDetailViewModel ViewModel

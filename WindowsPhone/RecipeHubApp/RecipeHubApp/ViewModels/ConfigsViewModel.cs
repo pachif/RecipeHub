@@ -23,8 +23,10 @@ namespace RecipeHubApp
         public void FillBackgrounds()
         {
             Backgrounds.Add(new BackgroundItem { BackImg = "PanoramaBackground.png", BackName = "Default" });
+            Backgrounds.Add(new BackgroundItem { BackImg = "/Backgrounds/PanoramaBackground1.png", BackName = "pattern 1" });
             Backgrounds.Add(new BackgroundItem { BackImg = "/Backgrounds/PanoramaBackground2.png", BackName = "pattern 2" });
             Backgrounds.Add(new BackgroundItem { BackImg = "/Backgrounds/PanoramaBackground3.png", BackName = "stripes 3" });
+            Backgrounds.Add(new BackgroundItem { BackImg = "/Backgrounds/PanoramaBackground4.png", BackName = "stripes 4" });
         }
 
         private bool _detectionActive;

@@ -1,47 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
+using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Threading;
+using System.Windows.Controls.Primitives;
+using System.ComponentModel;
 
 namespace RecipeHubApp
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        BackgroundWorker backroungWorker;
+        Popup myPopup;
+        private bool loading;
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+            //Set initial page
+            myPopup = new Popup() { IsOpen = true, Child = new AnimatedSplashScreenControl() };
+            backroungWorker = new BackgroundWorker();
+            loading = true;
+            RunBackgroundWorker();
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
+        public int PageCount { get; set; }        
+
         public MainViewModel ViewModel
         {
             get
             {
                 return DataContext as MainViewModel;
-            }
-        }
-
-        // Load data for the ViewModel Items
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-                BuildApplicationBar();
             }
         }
 
@@ -58,6 +56,25 @@ namespace RecipeHubApp
                     ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri(App.BackgroundSource, UriKind.Relative)),
                     Opacity = 0.5
                 };
+            }
+        }
+
+        // Load data for the ViewModel Items
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!App.ViewModel.IsDataLoaded)
+            {
+                App.ViewModel.LoadData();
+                App.ViewModel.PropertyChanged += new PropertyChangedEventHandler(MainViewModel_PropertyChanged);
+                BuildApplicationBar();
+            }
+        }
+
+        private void MainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ProgressVisibility" && App.ViewModel.ProgressVisibility == System.Windows.Visibility.Collapsed)
+            {
+                loading = false;
             }
         }
 
@@ -176,6 +193,26 @@ namespace RecipeHubApp
             ViewModel.LoadSearchResponse(PageCount);
         }
 
-        public int PageCount { get; set; }
+        private void RunBackgroundWorker()
+        {
+            backroungWorker.DoWork += ((s, args) =>
+            {
+                while (loading)
+                {
+                    Thread.Sleep(1000);
+                }
+                
+            });
+
+            backroungWorker.RunWorkerCompleted += ((s, args) =>
+            {
+                this.Dispatcher.BeginInvoke(() =>
+                {
+                    this.myPopup.IsOpen = false;
+                }
+            );
+            });
+            backroungWorker.RunWorkerAsync();
+        }
     }
 }

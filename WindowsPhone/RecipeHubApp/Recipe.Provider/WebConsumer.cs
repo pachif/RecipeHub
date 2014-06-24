@@ -17,6 +17,7 @@ namespace Recipes.Provider
     {
         public event EventHandler<ResultEventArgs> ResponseEnded;
         private HttpWebRequest webRequest;
+        private string postData;
 
         public string ContentType { get; set; }
 

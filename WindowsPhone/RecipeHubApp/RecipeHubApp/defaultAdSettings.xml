@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AdSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CultureDescriptors>
+    <AdCultureDescriptor CultureName="en-US">
+      <Probabilities Probability="10" AdType="MobFox" AppID="ccb5c295db89362962156f9036bf7678"/>
+      <Probabilities Probability="10" AdType="AdDuplex" AppID="74155"/>
+      <Probabilities Probability="30" AdType="PubCenter" AppID="88cab8ab-34af-42b3-a44e-aa2c9921169f" SecondaryID="10336862" />
+      <Probabilities Probability="40" AdType="Smaato" AppID="65834081" SecondaryID="923879326"/>
+    </AdCultureDescriptor>
+    <AdCultureDescriptor CultureName="es-ES">
+      <Probabilities Probability="20" AdType="AdDuplex" AppID="74155"/>
+      <Probabilities Probability="50" AdType="Smaato" AppID="923879326" SecondaryID="65834081"/>
+      <Probabilities Probability="30" AdType="PubCenter" AppID="88cab8ab-34af-42b3-a44e-aa2c9921169f" SecondaryID="10336862" />
+    </AdCultureDescriptor>
+    <AdCultureDescriptor CultureName="es-AR">
+      <Probabilities Probability="50" AdType="AdDuplex" AppID="74155"/>
+      <Probabilities Probability="50" AdType="PubCenter" AppID="test_client" SecondaryID="Image480_80" />
+    </AdCultureDescriptor>
+    <AdCultureDescriptor CultureName="default">
+      <Probabilities Probability="30" AdType="MobFox" AppID="ccb5c295db89362962156f9036bf7678"/>
+      <Probabilities Probability="20" AdType="Smaato" AppID="923879326" SecondaryID="65834081" />
+      <Probabilities Probability="10" AdType="PubCenter" AppID="88cab8ab-34af-42b3-a44e-aa2c9921169f" SecondaryID="10336862" />
+      <Probabilities Probability="40" AdType="AdDuplex" AppID="74155"/>
+    </AdCultureDescriptor>
+  </CultureDescriptors>
+</AdSettings>

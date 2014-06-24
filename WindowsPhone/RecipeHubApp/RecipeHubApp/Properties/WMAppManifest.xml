@@ -10,7 +10,7 @@
       <Capability Name="ID_CAP_SENSORS" />
       <Capability Name="ID_CAP_CONTACTS" />
       <Capability Name="ID_CAP_APPOINTMENTS" />-->
-      <Capability Name="ID_CAP_PHONEDIALER"/>
+      <Capability Name="ID_CAP_PHONEDIALER" />
       <Capability Name="ID_CAP_MEDIALIB" />
       <Capability Name="ID_CAP_IDENTITY_USER" />
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />

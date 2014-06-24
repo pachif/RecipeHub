@@ -51,7 +51,7 @@
             <ScrollViewer>
             <Grid>
             <StackPanel>
-                        <toolkit:ToggleSwitch Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AlarmDetectHeaderKey}" Checked="ToggleSwitch_Checked" IsChecked="{Binding DetectionActive}" Unchecked="ToggleSwitch_Unchecked" />
+                <toolkit:ToggleSwitch Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AlarmDetectHeaderKey}" Checked="ToggleSwitch_Checked" IsChecked="{Binding DetectionActive}" Unchecked="ToggleSwitch_Unchecked" />
                 <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.SelectBackground}" Style="{StaticResource PhoneTextLargeStyle}" />
                 <ComboBox Name="backGroundComboBox" 
                           ItemsSource="{Binding Backgrounds, Mode=OneWay}"
@@ -70,23 +70,10 @@
                 <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.MoreKey}" Style="{StaticResource PhoneTextLargeStyle}" />
                 <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.DeleteHistoryKey}" Command="{Binding DeleteHistoryCommand, Mode=OneWay}" />
                 <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.ShareOptionsKey}" IsEnabled="False" />
-                        <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.RateKey}" Click="Button_Click" />
-                    </StackPanel>
+                <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.RateKey}" Click="Button_Click" />
+            </StackPanel>
             </Grid>
             </ScrollViewer>
         </Grid>
     </Grid>
-
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
 </phone:PhoneApplicationPage>

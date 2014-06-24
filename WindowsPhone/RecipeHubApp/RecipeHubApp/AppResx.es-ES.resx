@@ -210,4 +210,7 @@
   <data name="SystemBusyMessageKey" xml:space="preserve">
     <value>la aplicacion esta ocupado recuperando los resultados de la busqueda por favor espere.</value>
   </data>
+  <data name="WaitPleaseKey" xml:space="preserve">
+    <value>Espere un momento por favor</value>
+  </data>
 </root>

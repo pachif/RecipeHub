@@ -49,24 +49,27 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdDuplex.WindowsPhone">
-      <HintPath>..\libs\AdDuplex.WindowsPhone.dll</HintPath>
-    </Reference>
     <Reference Include="BugSense">
       <HintPath>..\libs\BugSense.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Advertising.Mobile, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="Microsoft.Advertising.Mobile.UI, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.Advertising.Mobile, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.Advertising.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile.UI, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.Advertising.Mobile.UI.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="System.Device" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -74,6 +77,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatedSplashScreenControl.xaml.cs">
+      <DependentUpon>AnimatedSplashScreenControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -121,6 +127,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="AnimatedSplashScreenControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConfigPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,10 +161,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="add.png" />
-    <Content Include="AddRotatorConfig.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="alarm-ring.wma" />
+    <Content Include="Backgrounds\PanoramaBackground1.png" />
+    <Resource Include="SplashScreenImage1.jpg" />
+    <Content Include="SplashScreenImage.jpg" />
+    <Resource Include="defaultAdSettings.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Backgrounds\PanoramaBackground4.png" />
     <Content Include="settings.png" />
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -165,13 +180,14 @@
     <Resource Include="ingredients-icon.png" />
     <Content Include="Backgrounds\PanoramaBackground2.png" />
     <Content Include="Backgrounds\PanoramaBackground3.png" />
-    <Content Include="SplashScreenImage.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="nopic.jpg" />
     <Resource Include="PanoramaBackground.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdRotator\AdRotator.csproj">
+      <Project>{1A1D28E1-0143-497B-95BE-F3B1467D4CB1}</Project>
+      <Name>AdRotator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Recipe.BusinessObjects\Recipes.BusinessObjects.csproj">
       <Project>{CD8788AF-7834-4E49-BDC8-C86AA5837CF7}</Project>
       <Name>Recipes.BusinessObjects</Name>

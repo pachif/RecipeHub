@@ -41,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\libs\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Servicemodel.Web" />
     <Reference Include="System.Windows" />
@@ -49,6 +52,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.XPath">
+      <HintPath>..\libs\System.Xml.XPath.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MicrosoftTransProvider.cs" />

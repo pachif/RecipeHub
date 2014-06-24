@@ -16,21 +16,31 @@ namespace Recipes.Provider
     {
         public event EventHandler<ResultEventArgs> TranslationEnded;
         private static AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-
+        // Google Translator
+        private const string Apikey = "AIzaSyAwmPpAerCBw1wCx5heD5-2zaBqGzJwNEQ";
+        private const string baseURL = "http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}";
+        private const string baseAPIURL = "https://www.googleapis.com/language/translate/v2?key={0}&q={1}&source={2}&target={3}";
+        
         private WebConsumer consumer;
         private string translatedText;
 
         public TranslationProvider()
         {
-            consumer = new WebConsumer();
-           
+           consumer = new WebConsumer();
         }
 
+        /// <summary>
+        /// Translate text using Google Translate GET operation synchronously
+        /// </summary>
+        /// <param name="input">Input string</param>
+        /// <param name="languagePair">2 letter Language Pair, delimited by "|".
+        /// E.g. "ar|en" language pair means to translate from Arabic to English</param>
+        /// <returns>Translated to String</returns>
         public string TranslateText(string input, string languagePair = "es|en")
         {
             var consumer = new WebConsumer();
             consumer.ResponseEnded +=new EventHandler<ResultEventArgs>(Sync_ResponseEnded);
-            string url = String.Format("http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}", input, languagePair);
+            string url = String.Format(baseURL, input, languagePair);
             consumer.GetUrlAsync(url);
             //translatedText = consumer.GetUrl(url);
 
@@ -41,7 +51,7 @@ namespace Recipes.Provider
         }
 
         /// <summary>
-        /// Translate Text using Google Translate API's
+        /// Translates text using Google Translate GET operation asynchronously
         /// Google URL - http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}
         /// </summary>
         /// <param name="input">Input string</param>
@@ -52,7 +62,7 @@ namespace Recipes.Provider
         {
             var consumer = new WebConsumer();
             consumer.ResponseEnded += new EventHandler<ResultEventArgs>(consumer_ResponseEnded);
-            string url = String.Format("http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}", input, languagePair);
+            string url = String.Format(baseURL, input, languagePair);
             consumer.GetUrlAsync(url);
         }
 

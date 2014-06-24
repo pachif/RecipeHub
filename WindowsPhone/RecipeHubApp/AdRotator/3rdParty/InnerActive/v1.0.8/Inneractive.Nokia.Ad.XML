@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Inneractive.Nokia.Ad</name>
+    </assembly>
+    <members>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveFullScreenPage">
+            <summary></summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveFullScreenPage.#ctor">
+            <summary></summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveFullScreenPage.OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs)">
+            <summary></summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveFullScreenPage.OnBackKeyPress(System.ComponentModel.CancelEventArgs)">
+            <summary></summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveFullScreenPage.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAdControl.SetBaseRequest(System.String,System.String)">
+            <summary>SetBaseRequest function sets the base request URL into iaBaseRequest</summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAdControl.GetRequestUrl">
+            <summary>GetRequestUrl function gets the request URL</summary>
+            <returns>Request URL</returns>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAdControl.iaWebBrowser_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            iaWebBrowser_Loaded
+            </summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAdControl.iaWebBrowser_Navigating(System.Object,Microsoft.Phone.Controls.NavigatingEventArgs)">
+            <summary>
+            iaWebBrowser_Navigating
+            </summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAdControl.iaWebBrowser_LoadCompleted(System.Object,System.Windows.Navigation.NavigationEventArgs)">
+            <summary>
+            iaWebBrowser_LoadCompleted
+            </summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAdControl.OnTimerTick(System.Object,System.EventArgs)">
+            <summary>
+            OnTimerTick
+            </summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAdControl.ReloadAd">
+            <summary>
+            ReloadAd function reloads the current ad
+            </summary>
+        </member>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveAd">
+            <summary>InneractiveAd</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.AppIDProperty">
+            <summary>Application ID - provided by inneractive at the application registration</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.AdTypeProperty">
+            <summary>Ad type - can be banner only, text only, or interstitial ad</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.ReloadTimeProperty">
+            <summary>Reload time - the ad refresh time (in seconds)
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.AgeProperty">
+            <summary>Age - User’s age</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.DistributionIDProperty">
+            <summary>Distribution Id - Distribution Channel ID (659 for banner ads, 788 for text ads)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.ExternalIDProperty">
+            <summary>External Id - An application specific id – the id of the requesting device in the partner’s domain</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.GenderProperty">
+            <summary>Gender - User’s gender (allowed values: M, m, F, f, Male, Female)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.GPSProperty">
+            <summary>Gps Coordinates - GPS ISO code location data in latitude, longitude format. For example: 53.542132,-2.239856 (w/o spaces)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.KeywordsProperty">
+            <summary>Keywords - Keywords relevant to this user’s specific session (comma separated)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.LocationProperty">
+            <summary>Location - Comma separated list of country, state/province, city. for example: US,NY,NY (w/o spaces)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.MsisdnProperty">
+            <summary>Msisdn - User’s mobile number (MSISDN format, with international prefix)</summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAd.#ctor">
+            <summary>
+            XAML constructor
+            </summary>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAd.#ctor(System.String,Inneractive.Nokia.Ad.InneractiveAd.IaAdType,System.Int32)">
+            <summary>
+            InneractiveAd constructor
+            </summary>
+            <param name='appId'>Application ID - provided by inneractive at the application registration</param>
+            <param name='adType'>Ad type - can be banner only, text only, or interstitial ad</param>
+            <param name='reloadTime'>Reload time - the ad refresh time (in seconds)
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </param>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAd.#ctor(System.String,Inneractive.Nokia.Ad.InneractiveAd.IaAdType,System.Int32,System.Collections.Generic.Dictionary{Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams,System.String})">
+            <summary>
+            InneractiveAd constructor
+            </summary>
+            <param name='appId'>Application ID - provided by inneractive at the application registration</param>
+            <param name='adType'>Ad type - can be banner only, text only, or interstitial ad</param>
+            <param name='reloadTime'>Reload time - the ad refresh time (in seconds)
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </param>
+            <param name='optionalParams'>Optional parameters for the ad request</param>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAd.DisplayAd(System.String,Inneractive.Nokia.Ad.InneractiveAd.IaAdType,System.Windows.Controls.Grid,System.Int32)">
+            <summary>
+            DisplayAd function displays an ad
+            </summary>
+            <param name='appId'>Application ID - provided by inneractive at the application registration</param>
+            <param name='adType'>Ad type - can be banner only, text only, or interstitial ad</param>
+            <param name='rootGrid'>Root grid - the grid in which the ad will be displayed
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </param>
+            <param name='reloadTime'>Reload time - the ad refresh time (in seconds)
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </param>
+            <returns>
+            Returns true if succeeded, or false if failed.
+            Can fail in the following cases:
+            - No network connection available
+            - appId is null or an empty string
+            - rootGrid is null and adType isn't interstitial
+            </returns>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAd.DisplayAd(System.String,Inneractive.Nokia.Ad.InneractiveAd.IaAdType,System.Windows.Controls.Grid,System.Int32,System.Collections.Generic.Dictionary{Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams,System.String})">
+            <summary>
+            DisplayAd function displays an ad
+            </summary>
+            <param name='appId'>Application ID - provided by inneractive at the application registration</param>
+            <param name='adType'>Ad type - can be banner only, text only, or interstitial ad</param>
+            <param name='rootGrid'>Root grid - the grid in which the ad will be displayed
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </param>
+            <param name='reloadTime'>Reload time - the ad refresh time (in seconds)
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </param>
+            <param name='optionalParams'>Optional parameters for the ad request</param>
+            <returns>
+            Returns true if succeeded, or false if failed.
+            Can fail in the following cases:
+            - No network connection available
+            - appId is null or an empty string
+            - rootGrid is null and adType isn't interstitial
+            </returns>
+        </member>
+        <member name="M:Inneractive.Nokia.Ad.InneractiveAd.Current_Closing(System.Object,Microsoft.Phone.Shell.ClosingEventArgs)">
+            <summary>
+            Current_Closing
+            Being called when the application closes
+            </summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.AppID">
+            <summary>Application ID - provided by inneractive at the application registration</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.AdType">
+            <summary>Ad type - can be banner only, text only, or interstitial ad</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.ReloadTime">
+            <summary>Reload time - the ad refresh time (in seconds)
+            <remarks>Not relevant for a interstitial ad</remarks>
+            </summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.Age">
+            <summary>Age - User’s age</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.DistributionID">
+            <summary>Distribution Id - Distribution Channel ID (659 for banner ads, 788 for text ads)</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.ExternalID">
+            <summary>External Id - An application specific id – the id of the requesting device in the partner’s domain</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.Gender">
+            <summary>Gender - User’s gender (allowed values: M, m, F, f, Male, Female)</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.GPS">
+            <summary>Gps Coordinates - GPS ISO code location data in latitude, longitude format. For example: 53.542132,-2.239856 (w/o spaces)</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.Keywords">
+            <summary>Keywords - Keywords relevant to this user’s specific session (comma separated)</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.Location">
+            <summary>Location - Comma separated list of country, state/province, city. for example: US,NY,NY (w/o spaces)</summary>
+        </member>
+        <member name="P:Inneractive.Nokia.Ad.InneractiveAd.Msisdn">
+            <summary>Msisdn - User’s mobile number (MSISDN format, with international prefix)</summary>
+        </member>
+        <member name="E:Inneractive.Nokia.Ad.InneractiveAd.AdReceived">
+            <summary>IaAdReceived - Called when a new paid Ad has been received and is about to be displayed</summary>
+        </member>
+        <member name="E:Inneractive.Nokia.Ad.InneractiveAd.DefaultAdReceived">
+            <summary>IaDefaultAdReceived - Called when a new default Ad has been received and is about to be displayed</summary>
+        </member>
+        <member name="E:Inneractive.Nokia.Ad.InneractiveAd.AdFailed">
+            <summary>IaAdFailed - Called when an Ad request fails to get an Ad</summary>
+        </member>
+        <member name="E:Inneractive.Nokia.Ad.InneractiveAd.AdClicked">
+            <summary>IaAdClicked - Called when an Ad clicked</summary>
+        </member>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveAd.IaAdType">
+            <summary>Ad types</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaAdType.IaAdType_Banner">
+            <summary>Banner ad</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaAdType.IaAdType_Text">
+            <summary>Text ad</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaAdType.IaAdType_Interstitial">
+            <summary>Interstitial ad</summary>
+        </member>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams">
+            <summary>Optional parameters</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_Age">
+            <summary>Age - User’s age</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_Distribution_Id">
+            <summary>Distribution Id - Distribution Channel ID (659 for banner ads, 788 for text ads)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_External_Id">
+            <summary>External Id - An application specific id – the id of the requesting device in the partner’s domain</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_Gender">
+            <summary>Gender - User’s gender (allowed values: M, m, F, f, Male, Female)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_Gps_Coordinates">
+            <summary>Gps Coordinates - GPS ISO code location data in latitude, longitude format. For example: 53.542132,-2.239856 (w/o spaces)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_Keywords">
+            <summary>Keywords - Keywords relevant to this user’s specific session (comma separated)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_Location">
+            <summary>Location - Comma separated list of country, state/province, city. for example: US,NY,NY (w/o spaces)</summary>
+        </member>
+        <member name="F:Inneractive.Nokia.Ad.InneractiveAd.IaOptionalParams.Key_Msisdn">
+            <summary>Msisdn - User’s mobile number (MSISDN format, with international prefix)</summary>
+        </member>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveAd.IaAdReceived">
+            <summary>IaAdReceived - Called when a new paid Ad has been received and is about to be displayed</summary>
+        </member>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveAd.IaDefaultAdReceived">
+            <summary>IaDefaultAdReceived - Called when a new default Ad has been received and is about to be displayed</summary>
+        </member>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveAd.IaAdFailed">
+            <summary>IaAdFailed - Called when an Ad request fails to get an Ad</summary>
+        </member>
+        <member name="T:Inneractive.Nokia.Ad.InneractiveAd.IaAdClicked">
+            <summary>IaAdClicked - Called when an Ad clicked</summary>
+        </member>
+    </members>
+</doc>

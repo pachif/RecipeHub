@@ -212,4 +212,7 @@
   <data name="SystemBusyMessageKey" xml:space="preserve">
     <value>System is busy doing search, please wait</value>
   </data>
+  <data name="WaitPleaseKey" xml:space="preserve">
+    <value>Wait a moment please</value>
+  </data>
 </root>

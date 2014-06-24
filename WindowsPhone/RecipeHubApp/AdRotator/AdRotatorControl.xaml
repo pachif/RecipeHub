@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="AdRotator.AdRotatorControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+	<UserControl.Resources>
+		<Storyboard x:Name="SlideOutLRAdStoryboard" Completed="SlideOutAdStoryboard_Completed">
+	      <DoubleAnimation x:Name="SlideOutLRAdStoryboardAnimation"
+	        Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LayoutRoot"
+	        From="0" To="0" Duration="0:0:1"/>
+	    </Storyboard>
+		<Storyboard x:Name="SlideInLRAdStoryboard" Completed="SlideInAdStoryboard_Completed">
+	      <DoubleAnimation x:Name="SlideInLRAdStoryboardAnimation"
+	        Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LayoutRoot"
+	        From="0" To="0" Duration="0:0:1"/>
+	    </Storyboard>
+        <Storyboard x:Name="SlideOutUDAdStoryboard" Completed="SlideOutAdStoryboard_Completed">
+            <DoubleAnimation x:Name="SlideOutUDAdStoryboardAnimation"
+	        Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LayoutRoot"
+	        From="0" To="0" Duration="0:0:1"/>
+        </Storyboard>
+        <Storyboard x:Name="SlideInUDAdStoryboard" Completed="SlideInAdStoryboard_Completed">
+            <DoubleAnimation x:Name="SlideInUDAdStoryboardAnimation"
+	        Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LayoutRoot"
+	        From="0" To="0" Duration="0:0:1"/>
+        </Storyboard>
+        <Storyboard x:Name="SlidingAdTimer" Completed="SlidingAdTimer_Completed"/>
+	</UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    	<Grid.RenderTransform>
+    		<CompositeTransform/>
+    	</Grid.RenderTransform>
+
+    </Grid>
+</UserControl>

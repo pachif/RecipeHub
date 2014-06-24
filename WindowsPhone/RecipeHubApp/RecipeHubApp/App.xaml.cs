@@ -108,8 +108,6 @@ namespace RecipeHubApp
             BumpSettingsFile();
         }
 
-
-
         // Code to execute if a navigation fails
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
