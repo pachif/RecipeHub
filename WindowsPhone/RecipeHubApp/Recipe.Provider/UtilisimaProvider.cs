@@ -174,11 +174,84 @@ namespace Recipes.Provider
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(doc);
             HtmlNode titleNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/h1");
+            re.Title = titleNode.InnerText;
             HtmlNode mainIngrNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/p");
+            re.MainIngredient = mainIngrNode.InnerText.Remove(0, "ingrediente principal : ".Length - 1);
+            HtmlNode categoryNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/h3");
+            re.Category = categoryNode.InnerText;
             HtmlNode portNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='mainContent']/div/section/div/div[1]/h5");
-            HtmlNodeCollection ingrNodes = htmlDoc.DocumentNode.SelectNodes("//*[@id='mainContent']/div/section/div/div[1]/ul/li/p");
-            HtmlNode procNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='mainContent']/div/section/div/div[2]/p");
+            re.Portions = ExtractForksNumber(portNode);
+            var authorNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/h2");
+            re.Author = authorNode.InnerText.Remove(0, "por:".Length).Trim();
+            var imgNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/figure/img");
+            if (imgNode.Attributes.Contains("src"))
+                re.ImageUrl = imgNode.Attributes["src"].Value;
+            
+            re.Ingridients = ProcessIngredients(htmlDoc);
+            re.Procedure = ProcessProcedure(htmlDoc);
+
+            HandleAlarms(re.Procedure, ref re);
+
             return re;
+        }
+
+        private List<string> ProcessIngredients(HtmlDocument htmlDoc)
+        {
+            var ingridients = new List<string>();
+            int i = 1;
+            HtmlNodeCollection ingrNodes = null;
+            do
+            {
+                string xpath = string.Format("//*[@id='mainContent']/div/section/div/div[1]/ul/li[{0}]/p", i);
+                ingrNodes = htmlDoc.DocumentNode.SelectNodes(xpath);
+                if (ingrNodes != null)
+                {
+                    foreach (var node in ingrNodes)
+                    {
+                        ingridients.Add(node.InnerText);
+                    }
+                    i++; 
+                }
+            } while (ingrNodes != null);
+            return ingridients;
+        }
+
+        private string ProcessProcedure(HtmlDocument htmlDoc)
+        {
+            HtmlNode procNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='mainContent']/div/section/div/div[2]/p");
+            if (procNode != null)
+            {
+                return procNode.InnerText;
+            }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                HtmlNode node = null;
+                int i = 1;
+                do
+                {
+                    string xpath = string.Format("//*[@id='mainContent']/div/section/div/div[2]/ul/li[{0}]/p", i);
+                    node = htmlDoc.DocumentNode.SelectSingleNode(xpath);
+                    if (node != null)
+                    {
+                        sb.Append(node.InnerText);
+                        i++;
+                    }
+                } while (node!=null);
+                return sb.ToString();
+            }
+            throw new Exception("Procedure not found");
+        }
+
+        private static int ExtractForksNumber(HtmlNode portNode)
+        {
+            int port = 0;
+            var numberEx = new Regex("\\w+\\W*\\s+(?<num>\\d+)\\s+");
+            if (numberEx.IsMatch(portNode.InnerText))
+            {
+                int.TryParse(numberEx.Match(portNode.InnerText).Groups["num"].Value, out port);
+            }
+            return port;
         }
 
         #region Old Utilisima Translation
