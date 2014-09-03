@@ -215,4 +215,7 @@
   <data name="WaitPleaseKey" xml:space="preserve">
     <value>Wait a moment please</value>
   </data>
+  <data name="SearchEngineKey" xml:space="preserve">
+    <value>Search Engines</value>
+  </data>
 </root>

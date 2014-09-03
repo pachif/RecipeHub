@@ -50,29 +50,37 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ScrollViewer>
             <Grid>
-            <StackPanel>
-                <toolkit:ToggleSwitch Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AlarmDetectHeaderKey}" Checked="ToggleSwitch_Checked" IsChecked="{Binding DetectionActive}" Unchecked="ToggleSwitch_Unchecked" />
-                <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.SelectBackground}" Style="{StaticResource PhoneTextLargeStyle}" />
-                <ComboBox Name="backGroundComboBox" 
-                          ItemsSource="{Binding Backgrounds, Mode=OneWay}"
-                          SelectionChanged="backGroundComboBox_SelectionChanged">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="{Binding IsSelected}" Margin="0,5">
-                        		<StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,5">
-                        			<Image Height="50" Source="{Binding BackImg}" Stretch="UniformToFill" />
-                        			<TextBlock Text="{Binding BackName}" Style="{StaticResource PhoneTextNormalStyle}" />
-                        		</StackPanel>
-                        	</Border>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.MoreKey}" Style="{StaticResource PhoneTextLargeStyle}" />
-                <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.DeleteHistoryKey}" Command="{Binding DeleteHistoryCommand, Mode=OneWay}" />
-                <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.ShareOptionsKey}" IsEnabled="False" />
-                <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.RateKey}" Click="Button_Click" />
-            </StackPanel>
-            </Grid>
+                    <StackPanel>
+                        <toolkit:ToggleSwitch Header="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AlarmDetectHeaderKey}" Checked="ToggleSwitch_Checked" IsChecked="{Binding DetectionActive}" Unchecked="ToggleSwitch_Unchecked" />
+                        <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.SelectBackground}" Style="{StaticResource PhoneTextLargeStyle}" />
+                        <ComboBox Name="backGroundComboBox" ItemsSource="{Binding Backgrounds, Mode=OneWay}" SelectionChanged="backGroundComboBox_SelectionChanged" Margin="5,0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource PhoneAccentBrush}" BorderThickness="{Binding IsSelected}" Margin="0,5">
+                                        <StackPanel toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,5">
+                                            <Image Height="50" Source="{Binding BackImg}" Stretch="UniformToFill" />
+                                            <TextBlock Text="{Binding BackName}" Style="{StaticResource PhoneTextNormalStyle}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.SearchEngineKey}" Style="{StaticResource PhoneTextLargeStyle}" />
+                        <ListBox ItemsSource="{Binding Path=DataContext.SearchEngines, ElementName=LayoutRoot}"  Margin="5,0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <toolkit:ToggleSwitch Header="{Binding Name}" IsChecked="{Binding IsActive}" Checked="SEToggleSwitch_Checked" Unchecked="SEToggleSwitch_Unchecked" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.MoreKey}" Style="{StaticResource PhoneTextLargeStyle}" />
+                        <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.DeleteHistoryKey}" Command="{Binding DeleteHistoryCommand, Mode=OneWay}" />
+                        <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.ShareOptionsKey}" IsEnabled="False" />
+                        <Button Content="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.RateKey}" Click="Button_Click" />
+                    </StackPanel>
+                </Grid>
             </ScrollViewer>
         </Grid>
     </Grid>

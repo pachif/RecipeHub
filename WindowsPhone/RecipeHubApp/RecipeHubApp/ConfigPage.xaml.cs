@@ -30,6 +30,7 @@ namespace RecipeHubApp
         private void ConfigPage_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.FillBackgrounds();
+            ViewModel.FillSearchEngines();
             ViewModel.DetectionActive = App.AlarmDetection;
         }
 
@@ -49,10 +50,19 @@ namespace RecipeHubApp
             App.AlarmDetection = false;
         }
 
-        private void test()
+        private void SEToggleSwitch_Checked(object sender, RoutedEventArgs e)
         {
-            Border bcontrol = new Border();
-            bcontrol.BorderThickness = new Thickness(1);
+            var sevm = ((System.Windows.FrameworkElement)(sender)).DataContext as SearchEngineItem;
+            if (sevm != null)
+            {
+                //TODO do something
+            }
+        }
+
+        private void SEToggleSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // TODO Do something
+            string name = (string)((SearchEngineItem)((System.Windows.FrameworkElement)(sender)).DataContext).Name;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

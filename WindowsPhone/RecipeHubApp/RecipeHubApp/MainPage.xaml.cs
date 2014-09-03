@@ -15,18 +15,13 @@ namespace RecipeHubApp
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        BackgroundWorker backroungWorker;
         Popup myPopup;
-        private bool loading;
-        // Constructor
+        
         public MainPage()
         {
             InitializeComponent();
             //Set initial page
             myPopup = new Popup() { IsOpen = true, Child = new AnimatedSplashScreenControl() };
-            backroungWorker = new BackgroundWorker();
-            loading = true;
-            RunBackgroundWorker();
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
@@ -65,16 +60,16 @@ namespace RecipeHubApp
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
-                App.ViewModel.PropertyChanged += new PropertyChangedEventHandler(MainViewModel_PropertyChanged);
-                BuildApplicationBar();
+                App.ViewModel.PropertyChanged += new PropertyChangedEventHandler(ViewModel_PropertyChanged);
             }
         }
 
-        private void MainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "ProgressVisibility" && App.ViewModel.ProgressVisibility == System.Windows.Visibility.Collapsed)
+            if (e.PropertyName == "IsDataLoaded" && App.ViewModel.IsDataLoaded)
             {
-                loading = false;
+                this.myPopup.IsOpen = false;
+                BuildApplicationBar();
             }
         }
 
@@ -191,28 +186,6 @@ namespace RecipeHubApp
                 PageCount++;
             }
             ViewModel.LoadSearchResponse(PageCount);
-        }
-
-        private void RunBackgroundWorker()
-        {
-            backroungWorker.DoWork += ((s, args) =>
-            {
-                while (loading)
-                {
-                    Thread.Sleep(1000);
-                }
-                
-            });
-
-            backroungWorker.RunWorkerCompleted += ((s, args) =>
-            {
-                this.Dispatcher.BeginInvoke(() =>
-                {
-                    this.myPopup.IsOpen = false;
-                }
-            );
-            });
-            backroungWorker.RunWorkerAsync();
         }
     }
 }

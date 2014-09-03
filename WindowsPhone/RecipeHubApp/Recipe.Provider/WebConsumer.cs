@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.IO;
+using System.Net;
 using System.Threading;
 
 namespace Recipes.Provider
@@ -17,17 +9,24 @@ namespace Recipes.Provider
     {
         public event EventHandler<ResultEventArgs> ResponseEnded;
         private HttpWebRequest webRequest;
-        private string postData;
 
         public string ContentType { get; set; }
+
+        public double Timeout { get; set; }
+
+        public double CountDown { get; set; }
 
         public void GetUrlAsync(string url)
         {
             Uri uri = new Uri(url);
             webRequest = (HttpWebRequest)WebRequest.Create(uri);
             webRequest.Method = "GET";
+            webRequest.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            webRequest.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36";
             if (!string.IsNullOrEmpty(ContentType))
                 webRequest.ContentType = ContentType;
+
+            
             webRequest.BeginGetResponse(ResponseCallBack, null);
         }
 
@@ -50,6 +49,12 @@ namespace Recipes.Provider
             return streamRead.ReadToEnd();
         }
 
+        private void TriggerTimeoutException(object state)
+        {
+            var resultEventArgs = new ResultEventArgs { HasFail = true, Result = "Tiempo de Espera excedido. Servicio fuera de linea" };
+            TriggerReponseEnded(state, resultEventArgs);
+        }
+
         private void ResponseCallBack(IAsyncResult ar)
         {
             ResultEventArgs resultEventArgs = null;
@@ -64,15 +69,20 @@ namespace Recipes.Provider
                 streamRead.Close();
                 resultEventArgs = new ResultEventArgs { HasFail = false, Result = htmldoc };
             }
-            catch (Exception ex)
+            catch (System.Net.WebException ex)
             {
                 resultEventArgs = new ResultEventArgs { HasFail = true, Result = ex };
                 //throw;
             }
             
+            TriggerReponseEnded(ar.AsyncState,resultEventArgs);
+        }
+
+        private void TriggerReponseEnded(object sender, ResultEventArgs resultEventArgs)
+        {
             if (ResponseEnded != null)
             {
-                ResponseEnded(htmldoc, resultEventArgs);
+                ResponseEnded(sender, resultEventArgs);
             }
         }
     }

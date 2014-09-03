@@ -158,6 +158,7 @@
       <SubType>Designer</SubType>
     </None>
     <DesignTimeOnly Include="SampleData\IngredientsDataSource\IngredientsDataSource.xsd" />
+    <None Include="RecipeHubApp_2014_09_03_16_52_06.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="add.png" />

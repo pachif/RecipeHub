@@ -18,6 +18,7 @@ namespace RecipeHubApp
         public ConfigsViewModel()
         {
             Backgrounds = new ObservableCollection<BackgroundItem>();
+            SearchEngines = new ObservableCollection<SearchEngineItem>();
         }
 
         public void FillBackgrounds()
@@ -27,6 +28,12 @@ namespace RecipeHubApp
             Backgrounds.Add(new BackgroundItem { BackImg = "/Backgrounds/PanoramaBackground2.png", BackName = "pattern 2" });
             Backgrounds.Add(new BackgroundItem { BackImg = "/Backgrounds/PanoramaBackground3.png", BackName = "stripes 3" });
             Backgrounds.Add(new BackgroundItem { BackImg = "/Backgrounds/PanoramaBackground4.png", BackName = "stripes 4" });
+        }
+
+        public void FillSearchEngines()
+        {
+            SearchEngines.Add(new SearchEngineItem("Fox Life", true));
+            SearchEngines.Add(new SearchEngineItem("Utilisima", false));
         }
 
         private bool _detectionActive;
@@ -43,6 +50,8 @@ namespace RecipeHubApp
 
 
         public ObservableCollection<BackgroundItem> Backgrounds { get; private set; }
+
+        public ObservableCollection<SearchEngineItem> SearchEngines { get; private set; }
 
         private ICommand _deleteHistoryCommand;
 
@@ -124,6 +133,44 @@ namespace RecipeHubApp
             double d = App.BackgroundSource.Trim().Equals(this.BackImg) ? 1.0 : 0.0;
             var thickness = IsSelected = new Thickness(d);
             return thickness;
+        }
+    }
+
+    public class SearchEngineItem : ViewModelBase
+    {
+        private string name;
+        private bool isActive;
+
+        public SearchEngineItem(string name, bool isActive = false)
+        {
+            Name = name;
+            IsActive = isActive;
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    OnPropertyChanged(() => Name);
+                }
+            }
+        }
+
+        public bool IsActive
+        {
+            get { return isActive; }
+            set
+            {
+                if (isActive != value)
+                {
+                    isActive = value;
+                    OnPropertyChanged(() => IsActive);
+                }
+            }
         }
     }
 }

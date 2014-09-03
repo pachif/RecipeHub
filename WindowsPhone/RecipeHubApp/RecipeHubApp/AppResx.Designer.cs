@@ -286,6 +286,15 @@ namespace RecipeHubApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Engines.
+        /// </summary>
+        public static string SearchEngineKey {
+            get {
+                return ResourceManager.GetString("SearchEngineKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to search.
         /// </summary>
         public static string SearchKey {

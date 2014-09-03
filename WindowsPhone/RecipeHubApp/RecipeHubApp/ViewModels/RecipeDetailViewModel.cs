@@ -82,7 +82,7 @@ namespace RecipeHubApp.ViewModels
             ProgressVisibility = Visibility.Visible;
 
             // Sample data; replace with real data
-            UtilisimaProvider provider = new UtilisimaProvider();
+            FoxProvider provider = new FoxProvider();
             provider.ObtainRecipeById(stringId);
 
             provider.ProcessEnded += (s, e) =>

@@ -57,8 +57,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FoxProvider.cs" />
     <Compile Include="MicrosoftTransProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderBase.cs" />
     <Compile Include="TranslationEventArgs.cs" />
     <Compile Include="TranslationProvider.cs" />
     <Compile Include="UtilisimaProvider.cs" />

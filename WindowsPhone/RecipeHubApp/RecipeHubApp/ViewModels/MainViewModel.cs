@@ -24,6 +24,7 @@ namespace RecipeHubApp
     {
         private Visibility _visibility;
         private string _searchText;
+        private bool _isDataLoaded;
 
         public MainViewModel()
         {
@@ -44,8 +45,12 @@ namespace RecipeHubApp
 
         public bool IsDataLoaded
         {
-            get;
-            private set;
+            get { return _isDataLoaded; }
+            set
+            {
+                _isDataLoaded = value;
+                OnPropertyChanged(() => IsDataLoaded);
+            }
         }
 
         public string SearchText
@@ -71,9 +76,9 @@ namespace RecipeHubApp
         public void LoadSearchResponse()
         {
             ProgressVisibility = Visibility.Visible;
-            UtilisimaProvider provider = new UtilisimaProvider();
+            var provider = new FoxProvider();
             
-            string url = string.Format("Following URL was consumed --> http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page={1}", SearchText, "0");
+            string url = string.Format("Following search was performed --> search={0}", SearchText);
             BugSenseHandler.Instance.SendEvent(url);
             provider.SearchRecipeByName(SearchText);
             provider.ProcessEnded += (s, e) =>
@@ -85,13 +90,14 @@ namespace RecipeHubApp
         public void LoadSearchResponse(int page)
         {
             ProgressVisibility = Visibility.Visible;
-            UtilisimaProvider provider = new UtilisimaProvider();
+            var provider = new FoxProvider();
 
             FoundRecipes.Clear();
+            string url = string.Format("Following search was performed --> search={0}&page={1}", SearchText, page);
             provider.SearchRecipeByName(SearchText, page);
             provider.ProcessEnded += (s, e) =>
             {
-                System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => UpdateSearchUI(e));
+                Deployment.Current.Dispatcher.BeginInvoke(() => UpdateSearchUI(e));
             };
         }
 
@@ -100,16 +106,17 @@ namespace RecipeHubApp
         /// </summary>
         public void LoadData()
         {
+
             ProgressVisibility = Visibility.Visible;
 
             // Sample data; replace with real data
-            UtilisimaProvider provider = new UtilisimaProvider();
+            FoxProvider provider = new FoxProvider();
             provider.ObtainMostRecents();
-
             provider.ProcessEnded += (s, e) =>
             {
-                System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => UpdateUI(e));
+                Deployment.Current.Dispatcher.BeginInvoke(() => { UpdateUI(e); });
             };
+
         }
 
         public void UpdateHistory()
@@ -126,6 +133,7 @@ namespace RecipeHubApp
         private void UpdateUI(ResultEventArgs e)
         {
             var list = e.Result as List<Recipe>;
+            
             if (list != null)
             {
                 foreach (var item in list)
@@ -134,11 +142,22 @@ namespace RecipeHubApp
                     vm.SetImageRecipeFrom(item.ImageUrl);
                     RecentRecipes.Add(vm);
                 }
-
-                this.IsDataLoaded = true;
                 UpdateHistoryUI();
-                ProgressVisibility = Visibility.Collapsed;
             }
+            else if(e.Result is string)
+            {
+                string msg = (string)e.Result;
+                MessageBox.Show(msg, "Error", MessageBoxButton.OK);
+            }
+            else if (e.Result is Exception)
+            {
+                var ex = ((Exception)e.Result);
+                BugSenseHandler.Instance.SendException(ex);
+                string msg = ex.Message;
+                MessageBox.Show(msg, "Error", MessageBoxButton.OK);
+            }
+            this.IsDataLoaded = true;
+            ProgressVisibility = Visibility.Collapsed;
         }
 
         private void UpdateHistoryUI()

@@ -213,4 +213,7 @@
   <data name="WaitPleaseKey" xml:space="preserve">
     <value>Espere un momento por favor</value>
   </data>
+  <data name="SearchEngineKey" xml:space="preserve">
+    <value>Motores de Busqueda</value>
+  </data>
 </root>
