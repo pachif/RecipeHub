@@ -70,6 +70,7 @@
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="System.Device" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -92,11 +93,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResx.es-ES.resx</DependentUpon>
-    </Compile>
-    <Compile Include="AppResx.fr.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResx.fr.resx</DependentUpon>
     </Compile>
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\InverseVisibilityConverter.cs" />
@@ -158,7 +154,6 @@
       <SubType>Designer</SubType>
     </None>
     <DesignTimeOnly Include="SampleData\IngredientsDataSource\IngredientsDataSource.xsd" />
-    <None Include="RecipeHubApp_2014_09_03_16_52_06.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="add.png" />
@@ -206,11 +201,6 @@
     <EmbeddedResource Include="AppResx.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResx.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AppResx.fr.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResx.fr.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

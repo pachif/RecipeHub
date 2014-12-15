@@ -216,4 +216,10 @@
   <data name="SearchEngineKey" xml:space="preserve">
     <value>Motores de Busqueda</value>
   </data>
+  <data name="ConnectionNotAvailable" xml:space="preserve">
+    <value>El dispositivo no esta conectado a Internet. Por favor vuelta a intentar mas tarde</value>
+  </data>
+  <data name="ProblemServerKey" xml:space="preserve">
+    <value>Existen problemas de conexion con el servidor, vuelva a intentar</value>
+  </data>
 </root>

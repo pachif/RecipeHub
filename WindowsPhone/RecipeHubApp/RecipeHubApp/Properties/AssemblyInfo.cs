@@ -9,7 +9,7 @@ using System.Resources;
 [assembly: AssemblyTitle("Recipe Hub")]
 [assembly: AssemblyDescription("Fluid UI Application shows up a list of recipes")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Southought")]
+[assembly: AssemblyCompany("InterSysWeb")]
 [assembly: AssemblyProduct("Recipe Hub")]
 [assembly: AssemblyCopyright("Copyright © Southought 2013")]
 [assembly: AssemblyTrademark("Southought")]
@@ -32,6 +32,6 @@ using System.Resources;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.5.0.0")]
-[assembly: AssemblyFileVersion("1.5.0.0")]
+[assembly: AssemblyVersion("1.5.2")]
+[assembly: AssemblyFileVersion("1.5.2")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

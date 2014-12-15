@@ -25,6 +25,7 @@ namespace RecipeHubApp
         private Visibility _visibility;
         private string _searchText;
         private bool _isDataLoaded;
+        private FoxProvider provider;
 
         public MainViewModel()
         {
@@ -32,6 +33,7 @@ namespace RecipeHubApp
             this.FoundRecipes = new ObservableCollection<ItemViewModel>();
             HistoryRecipes = new ObservableCollection<ItemViewModel>();
             ProgressVisibility = Visibility.Collapsed;
+            provider = new FoxProvider();
         }
 
         /// <summary>
@@ -76,29 +78,19 @@ namespace RecipeHubApp
         public void LoadSearchResponse()
         {
             ProgressVisibility = Visibility.Visible;
-            var provider = new FoxProvider();
-            
             string url = string.Format("Following search was performed --> search={0}", SearchText);
             BugSenseHandler.Instance.SendEvent(url);
             provider.SearchRecipeByName(SearchText);
-            provider.ProcessEnded += (s, e) =>
-            {
-                System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => UpdateSearchUI(e));
-            };
+            provider.ProcessEnded += SearchProcessEndedHandler;
         }
 
         public void LoadSearchResponse(int page)
         {
             ProgressVisibility = Visibility.Visible;
-            var provider = new FoxProvider();
-
             FoundRecipes.Clear();
             string url = string.Format("Following search was performed --> search={0}&page={1}", SearchText, page);
             provider.SearchRecipeByName(SearchText, page);
-            provider.ProcessEnded += (s, e) =>
-            {
-                Deployment.Current.Dispatcher.BeginInvoke(() => UpdateSearchUI(e));
-            };
+            provider.ProcessEnded += SearchProcessEndedHandler;
         }
 
         /// <summary>
@@ -106,16 +98,9 @@ namespace RecipeHubApp
         /// </summary>
         public void LoadData()
         {
-
             ProgressVisibility = Visibility.Visible;
-
-            // Sample data; replace with real data
-            FoxProvider provider = new FoxProvider();
             provider.ObtainMostRecents();
-            provider.ProcessEnded += (s, e) =>
-            {
-                Deployment.Current.Dispatcher.BeginInvoke(() => { UpdateUI(e); });
-            };
+            provider.ProcessEnded += LoadProcessEndedHandler;
 
         }
 
@@ -128,6 +113,18 @@ namespace RecipeHubApp
                     if (!HistoryRecipes.Contains(item))
                         HistoryRecipes.Add(item);
                 });
+        }
+
+        private void LoadProcessEndedHandler(object sender, ResultEventArgs e)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() => { UpdateUI(e); });
+            provider.ProcessEnded -= LoadProcessEndedHandler;
+        }
+
+        private void SearchProcessEndedHandler(object sender, ResultEventArgs e)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() => UpdateSearchUI(e));
+            provider.ProcessEnded -= SearchProcessEndedHandler;
         }
 
         private void UpdateUI(ResultEventArgs e)

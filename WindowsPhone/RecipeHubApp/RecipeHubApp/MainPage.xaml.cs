@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using System.Threading;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace RecipeHubApp
 {
@@ -20,7 +21,7 @@ namespace RecipeHubApp
         public MainPage()
         {
             InitializeComponent();
-            //Set initial page
+            // Set initial dinamic wait page
             myPopup = new Popup() { IsOpen = true, Child = new AnimatedSplashScreenControl() };
 
             // Set the data context of the listbox control to the sample data
@@ -57,11 +58,31 @@ namespace RecipeHubApp
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!App.ViewModel.IsDataLoaded)
+            var isConnected = NetworkInterface.GetIsNetworkAvailable();
+            if (!isConnected)
             {
-                App.ViewModel.LoadData();
-                App.ViewModel.PropertyChanged += new PropertyChangedEventHandler(ViewModel_PropertyChanged);
+                MessageBox.Show(AppResx.ConnectionNotAvailable);
+                this.myPopup.IsOpen = false;
+                ExitApp();
             }
+            else
+            {
+                if (!App.ViewModel.IsDataLoaded)
+                {
+                    App.ViewModel.LoadData();
+                    App.ViewModel.PropertyChanged += new PropertyChangedEventHandler(ViewModel_PropertyChanged);
+                }
+            }
+            
+        }
+
+        private void ExitApp()
+        {
+            while (NavigationService.BackStack.Any())
+            {
+                NavigationService.RemoveBackEntry();
+            }
+            this.IsHitTestVisible = this.IsEnabled = false;
         }
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

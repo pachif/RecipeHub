@@ -77,7 +77,7 @@ namespace RecipeHubApp
 
         private void DeleteHistory()
         {
-            var resources = Application.Current.Resources["LocalizedResx"] as ApplicationResx;
+            //var resources = Application.Current.Resources["LocalizedResx"] as ApplicationResx;
             var result = MessageBox.Show(AppResx.ConfirmMessage, "Confirm", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
             {

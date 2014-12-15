@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Marketplace;
 using BugSense;
+using System.Diagnostics;
 
 namespace RecipeHubApp
 {
@@ -122,12 +123,12 @@ namespace RecipeHubApp
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
             BugSenseHandler.Instance.SendException(e.ExceptionObject);
-            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
-                MessageBox.Show(e.ExceptionObject.Message + ". Application will exit", "Fatal Error", MessageBoxButton.OK));
-            if (System.Diagnostics.Debugger.IsAttached)
+            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => MessageBox.Show(AppResx.ProblemServerKey));
+            Debug.WriteLine(e.ExceptionObject);
+            if (Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger
-                System.Diagnostics.Debugger.Break();
+                Debugger.Break();
             }
         }
 

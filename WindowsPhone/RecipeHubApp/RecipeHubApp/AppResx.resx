@@ -218,4 +218,10 @@
   <data name="SearchEngineKey" xml:space="preserve">
     <value>Search Engines</value>
   </data>
+  <data name="ConnectionNotAvailable" xml:space="preserve">
+    <value>The device is not connect to the internet. Please try again once you are connected</value>
+  </data>
+  <data name="ProblemServerKey" xml:space="preserve">
+    <value>There are connection problems with the server, try again</value>
+  </data>
 </root>

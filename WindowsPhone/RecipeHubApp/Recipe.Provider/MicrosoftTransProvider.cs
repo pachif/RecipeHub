@@ -256,9 +256,10 @@ namespace Recipes.Provider
                     TranslatedText = results;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TranslatedText = "Error";
+                System.Diagnostics.Debug.WriteLine(ex);
+                TranslatedText = "Not Translated";
             }
             autoResetEvent.Set();
         }
@@ -377,7 +378,5 @@ namespace Recipes.Provider
                 headerValue = "Bearer " + admToken.access_token;
             }
         }
-
-        
     }
 }

@@ -135,13 +135,13 @@ namespace Recipes.Provider
             htmlDoc.LoadHtml(raw);
             var list = new List<BusinessObjects.Recipe>();
             // debido a errores de parseo
-            HtmlNode recetaNode = htmlDoc.DocumentNode.SelectSingleNode("/li");
-            while (recetaNode != null)
+            var recetaNodes = htmlDoc.DocumentNode.SelectNodes("/li");
+            foreach (HtmlNode recetaNode in recetaNodes)
             {
 
                 string title = recetaNode.SelectSingleNode("article").SelectSingleNode("a").SelectSingleNode("header").SelectSingleNode("h1").InnerText;
                 string author = recetaNode.SelectSingleNode("article").SelectSingleNode("a").SelectSingleNode("header").SelectSingleNode("h2").InnerText;
-
+                
                 HtmlNode anchor = recetaNode.SelectSingleNode("article").SelectSingleNode("a");
                 HtmlNode imgNode = anchor.SelectSingleNode("img");
                 string image = string.Empty;
@@ -166,7 +166,7 @@ namespace Recipes.Provider
 
                 list.Add(item);
 
-                recetaNode = recetaNode.ChildNodes.SingleOrDefault(x => x.Name == "li");
+                //recetaNode = recetaNode.ChildNodes.SingleOrDefault(x => x.Name == "li");
             }
             
             return list;
@@ -179,15 +179,16 @@ namespace Recipes.Provider
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(doc);
             HtmlNode titleNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/h1");
-            re.Title = titleNode.InnerText;
+            re.Title = HttpUtility.HtmlDecode(titleNode.InnerText);
             HtmlNode mainIngrNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/p");
             re.MainIngredient = mainIngrNode.InnerText.Remove(0, "ingrediente principal : ".Length - 1);
+            re.MainIngredient = HttpUtility.HtmlDecode(re.MainIngredient);
             HtmlNode categoryNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/h3");
-            re.Category = categoryNode.InnerText;
+            re.Category = HttpUtility.HtmlDecode(categoryNode.InnerText);
             HtmlNode portNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='mainContent']/div/section/div/div[1]/h5");
             re.Portions = ExtractForksNumber(portNode);
             var authorNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/header/h2");
-            re.Author = authorNode.InnerText.Remove(0, "por:".Length).Trim();
+            re.Author = HttpUtility.HtmlDecode(authorNode.InnerText.Remove(0, "por:".Length).Trim());
             var imgNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='headerItem']/section/figure/img");
             if (imgNode!= null && imgNode.Attributes.Contains("src"))
                 re.ImageUrl = imgNode.Attributes["src"].Value;
@@ -223,24 +224,24 @@ namespace Recipes.Provider
             HtmlNode procNode = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='mainContent']/div/section/div/div[2]/p");
             if (procNode != null)
             {
-                return System.Net.HttpUtility.HtmlDecode(procNode.InnerText.Replace("\t", string.Empty));
+                return HttpUtility.HtmlDecode(procNode.InnerText.Replace("\t", string.Empty));
             }
             else
             {
                 StringBuilder sb = new StringBuilder();
-                HtmlNode node = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='mainContent']/div/section/div/div[2]/ul/li");
-                while (node != null)
+                var nodes = htmlDoc.DocumentNode.SelectNodes("//*[@id='mainContent']/div/section/div/div[2]/ul/li");
+                foreach (HtmlNode node in nodes)
                 {
                     var parags = node.SelectNodes("p");
                     if (parags != null)
                     {
                         foreach (var item in parags)
                         {
-                            string outText = System.Net.HttpUtility.HtmlDecode(item.InnerText.Replace("\t",string.Empty));
+                            string outText = HttpUtility.HtmlDecode(item.InnerText.Replace("\t", string.Empty));
                             sb.Append(outText);
                         }
                     }
-                    node = node.ChildNodes.SingleOrDefault(x => x.Name == "li");
+                    //node = node.ChildNodes.SingleOrDefault(x => x.Name == "li");
                 }
                 return sb.ToString();
             }

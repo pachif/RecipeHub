@@ -18,6 +18,10 @@ namespace Recipes.Provider
     {
         public event EventHandler<ResultEventArgs> ProcessEnded;
 
+        private const string SECRET = "+xuNZPbl5oQxoCkq89EayNsqG1e6JNWQIJ5vNKhdEkM=";
+        private const  string KEY = "recipehub";
+        private MicrosoftTransProvider traslator;
+
         protected void FireProcessEnded(object sender, ResultEventArgs ev)
         {
             if (ProcessEnded != null)
@@ -91,21 +95,23 @@ namespace Recipes.Provider
 
         public void TranslateRecipeMicrosoft(BusinessObjects.Recipe recipe)
         {
-            string secret = "+xuNZPbl5oQxoCkq89EayNsqG1e6JNWQIJ5vNKhdEkM=";
-            string key = "recipehub";
+            
             CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
             if (!currentCulture.TwoLetterISOLanguageName.ToLowerInvariant().Equals("es"))
             {
-                var traslator = new MicrosoftTransProvider(key, secret);
+                if (traslator == null)
+                {
+                    traslator = new MicrosoftTransProvider(KEY, SECRET); 
+                }
                 string target = currentCulture.TwoLetterISOLanguageName;
 
-                recipe.Title = traslator.Translate(recipe.Title, target);
+                recipe.Title = traslator.Translate(HttpUtility.HtmlDecode(recipe.Title), target);
                 recipe.MainIngredient = traslator.Translate(recipe.MainIngredient, target);
                 recipe.Category = traslator.Translate(recipe.Category, target);
 
                 if (!string.IsNullOrEmpty(recipe.Procedure))
                 {
-                    string procedure = recipe.Procedure.Replace("\n", "[n] ");
+                    string procedure = recipe.Procedure.Replace("\r\n\r\n", " [n] ").Replace("\n                    ", " [n] ");
                     procedure = traslator.Translate(procedure, target);
                     procedure = HttpUtility.HtmlDecode(procedure);
                     recipe.Procedure = procedure.Replace("[n] ", "\n").Replace("[N] ", "\n").Replace("[ n] ", "\n").Replace("[n ] ", "\n");
@@ -130,7 +136,7 @@ namespace Recipes.Provider
             string tr = list.First();
             for (int i = 1; i < list.Count; i++)
             {
-                tr += ". " + list.ElementAt(i);
+                tr += ". " + HttpUtility.HtmlDecode(list.ElementAt(i));
             }
             tr = traslator.Translate(tr, targetLeng);
             string[] ltr = tr.Split('.');
@@ -143,43 +149,8 @@ namespace Recipes.Provider
         }
 
         #endregion
-
+        
         #region Old Google Translation
-        public void TranslateRecipe(BusinessObjects.Recipe recipe)
-        {
-            CultureInfo currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
-            MicrosoftTransProvider msprov = new MicrosoftTransProvider("recipehub", "+xuNZPbl5oQxoCkq89EayNsqG1e6JNWQIJ5vNKhdEkM=");
-            if (!currentCulture.TwoLetterISOLanguageName.ToLowerInvariant().Equals("es"))
-            {
-                var traslator = new TranslationProvider();
-                string languagePair = "es|" + currentCulture.TwoLetterISOLanguageName;
-
-                recipe.Title = traslator.TranslateText(recipe.Title, languagePair);
-                recipe.MainIngredient = traslator.TranslateText(recipe.MainIngredient, languagePair);
-                recipe.Category = traslator.TranslateText(recipe.Category, languagePair);
-
-                if (!string.IsNullOrEmpty(recipe.Procedure))
-                {
-                    string procedure = recipe.Procedure.Replace("\n", "[n] ");
-                    procedure = traslator.TranslateText(procedure, languagePair);
-                    procedure = HttpUtility.HtmlDecode(procedure);
-                    recipe.Procedure = procedure.Replace("[n] ", "\n").Replace("[N] ", "\n").Replace("[ n] ", "\n").Replace("[n ] ", "\n");
-                }
-
-                if (recipe.Ingridients != null && recipe.Ingridients.Count > 0)
-                {
-                    var list = new List<string>();
-                    recipe.Ingridients.ForEach(ingr => list.Add(traslator.TranslateText(ingr, languagePair)));
-                    recipe.Ingridients = list;
-                }
-
-                if (recipe.Alarms != null && recipe.Alarms.Count > 0)
-                {
-                    var list = new List<string>();
-                    recipe.Alarms.ForEach(al => al.Name = traslator.TranslateText(al.Name, languagePair));
-                }
-            }
-        }
 
         private BusinessObjects.Recipe ProcessHtmlResponse(string htmldoc)
         {

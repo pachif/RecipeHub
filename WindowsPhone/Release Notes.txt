@@ -4,6 +4,8 @@
 
 1.5.1
 - Hot Fix cambio a foxplay
+- Cambio en el dinamic splash screen
+
 
 1.5
 - Improving Translator Engine

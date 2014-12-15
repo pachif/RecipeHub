@@ -128,7 +128,6 @@
                                         SlidingAdDirection="Bottom"
                                         SlidingAdDisplaySeconds="10"
                                         SlidingAdHiddenSeconds="5"
-                                        
                                         Width="480"
                                         Height="80"  />
             <!--<adv:AdControl ApplicationId="88cab8ab-34af-42b3-a44e-aa2c9921169f" AdUnitId="10336862" Height="80" Width="480" VerticalAlignment="Bottom" ErrorOccurred="AdControl_ErrorOccurred" AdRefreshed="AdControl_AdRefreshed" />-->

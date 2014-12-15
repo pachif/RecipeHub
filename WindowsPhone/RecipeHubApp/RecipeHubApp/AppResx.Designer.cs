@@ -187,6 +187,15 @@ namespace RecipeHubApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The device is not connect to the internet. Please try again once you are connected.
+        /// </summary>
+        public static string ConnectionNotAvailable {
+            get {
+                return ResourceManager.GetString("ConnectionNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete History.
         /// </summary>
         public static string DeleteHistoryKey {
@@ -246,6 +255,15 @@ namespace RecipeHubApp {
         public static string PortionsKey {
             get {
                 return ResourceManager.GetString("PortionsKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are connection problems with the server, try again.
+        /// </summary>
+        public static string ProblemServerKey {
+            get {
+                return ResourceManager.GetString("ProblemServerKey", resourceCulture);
             }
         }
         
