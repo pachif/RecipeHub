@@ -8,6 +8,7 @@
 	xmlns:rotator="clr-namespace:AdRotator;assembly=AdRotator"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="clr-namespace:RecipeHubApp"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
 	x:Class="RecipeHubApp.RecipeDetailPage"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -15,7 +16,10 @@
 	Foreground="{StaticResource PhoneForegroundBrush}"
 	SupportedOrientations="Portrait" 
     Orientation="Portrait"
-	shell:SystemTray.IsVisible="True"  >
+	shell:SystemTray.IsVisible="True">
+    <phone:PhoneApplicationPage.Resources>
+        <common:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+    </phone:PhoneApplicationPage.Resources>
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -55,8 +59,10 @@
                         <StackPanel Grid.Row="1">
                             <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AuthorKey}" Style="{StaticResource PhoneTextLargeStyle}" />
                             <TextBlock x:Name="AutorTextBlock" Text="{Binding Author}" Style="{StaticResource PhoneTextSmallStyle}" />
-                            <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.CategoryKey}" Style="{StaticResource PhoneTextLargeStyle}" />
-                            <TextBlock x:Name="CategoryTextBlock" Text="{Binding Category, Mode=OneWay}" Style="{StaticResource PhoneTextSmallStyle}" />
+                            <StackPanel x:Name="CategoryStackPanel" Visibility="{Binding ElementName=LayoutRoot, Path=DataContext.CurrentRecipe.Category, Converter={StaticResource VisibilityConverter}}">
+                                <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.CategoryKey}" Style="{StaticResource PhoneTextLargeStyle}" />
+                                <TextBlock x:Name="CategoryTextBlock" Text="{Binding Category, Mode=OneWay}" Style="{StaticResource PhoneTextSmallStyle}" />
+                            </StackPanel>
                             <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.MainIngredientKey}" Style="{StaticResource PhoneTextLargeStyle}" />
                             <TextBlock x:Name="IngredientTextBlock" Text="{Binding MainIngredient}" Style="{StaticResource PhoneTextSmallStyle}" />
                             <TextBlock Text="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.PortionsKey}" Style="{StaticResource PhoneTextLargeStyle}" />

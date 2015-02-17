@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
 using Microsoft.Phone.Net.NetworkInformation;
+using RecipeHubApp.Resources;
 
 namespace RecipeHubApp
 {
@@ -141,11 +142,11 @@ namespace RecipeHubApp
         {
             ApplicationBar = new ApplicationBar();
 
-            var appSettingsButton = new ApplicationBarIconButton(new Uri("/settings.png", UriKind.Relative)) { Text = RecipeHubApp.AppResx.SettingsKey };
+            var appSettingsButton = new ApplicationBarIconButton(new Uri("/settings.png", UriKind.Relative)) { Text = AppResx.SettingsKey };
             appSettingsButton.Click += ApplicationBarIconButton_Click;
             ApplicationBar.Buttons.Add(appSettingsButton);
 
-            var appBarMenuReview = new ApplicationBarMenuItem(RecipeHubApp.AppResx.RateKey + " ...");
+            var appBarMenuReview = new ApplicationBarMenuItem(AppResx.RateKey + " ...");
             appBarMenuReview.Click += review_Click;
             ApplicationBar.MenuItems.Add(appBarMenuReview);
         }
@@ -154,7 +155,7 @@ namespace RecipeHubApp
         {
             if (e.AddedItems == null || e.AddedItems.Count.Equals(0)) return;
             string header = ((PanoramaItem)e.AddedItems[0]).Header.ToString();
-            if (header != RecipeHubApp.AppResx.SearchKey)
+            if (header != AppResx.SearchKey)
             {
                 // remove button
                 ApplicationBarIconButton toremove = null;
@@ -189,7 +190,7 @@ namespace RecipeHubApp
                 return;
 
             // add the load more items button in ApplicationBar
-            var appAddMoreButton = new ApplicationBarIconButton(new Uri("/add.png", UriKind.Relative)) { Text = RecipeHubApp.AppResx.AddMoreKey };
+            var appAddMoreButton = new ApplicationBarIconButton(new Uri("/add.png", UriKind.Relative)) { Text = AppResx.AddMoreKey };
             appAddMoreButton.Click += OnAddMoreClick;
             ApplicationBar.Buttons.Add(appAddMoreButton);
         }

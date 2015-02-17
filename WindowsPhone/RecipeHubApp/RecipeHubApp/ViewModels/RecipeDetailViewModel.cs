@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using Recipes.Provider;
 using Recipes.BusinessObjects;
 using System.Collections.ObjectModel;
+using RecipeHubApp.Resources;
 
 namespace RecipeHubApp.ViewModels
 {
@@ -136,7 +137,7 @@ namespace RecipeHubApp.ViewModels
                 {
                     var alarmVM = new AlarmItemViewModel
                     {
-                        AlarmName = string.Format(RecipeHubApp.AppResx.AlarmHeaderMessage, alarm.Name, alarm.Minutes),
+                        AlarmName = string.Format(AppResx.AlarmHeaderMessage, alarm.Name, alarm.Minutes),
                         Minutes = alarm.Minutes,
                         Checked = false
                     };

@@ -48,11 +48,19 @@ namespace Recipes.Provider
                 translator.TranslateTextAsync(name, languagePair);
                 translator.TranslationEnded += (s, e) =>
                 {
-                    realtext = (string)e.Result;
-                    string url = string.Format("http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page={1}", realtext, page);
-                    var consumer = new WebConsumer();
-                    consumer.GetUrlAsync(url);
-                    consumer.ResponseEnded += new EventHandler<ResultEventArgs>(rss_ResponseEnded);
+                    if (e.HasFail)
+                    {
+                        // Happens when interrupted internet connection is occuring
+                        FireProcessEnded(s, e);
+                    }
+                    else
+                    {
+                        realtext = (string)e.Result;
+                        string url = string.Format("http://s.ficfiles.com/utilisima/get_rss.php?seeker=recetas&search={0}&page={1}", realtext, page);
+                        var consumer = new WebConsumer();
+                        consumer.GetUrlAsync(url);
+                        consumer.ResponseEnded += new EventHandler<ResultEventArgs>(rss_ResponseEnded);
+                    }
                 };
             }
             else
@@ -66,7 +74,7 @@ namespace Recipes.Provider
 
         public void ObtainMostRecents()
         {
-            string url = "http://www.foxplay.com/ar/ajax/notes/index.html?seeker=recetas";
+            string url = "http://www.foxplay.com/ar/lifestyle/search/recipes";
             Debug.WriteLine("Llamando a {0}", foxplayURL);
             //var client = new WebClient();
             //client.DownloadStringCompleted += recent_ResponseEnded;
@@ -133,45 +141,73 @@ namespace Recipes.Provider
         {
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(raw);
+
+            var recetaNodes = htmlDoc.DocumentNode.SelectNodes("//*[@id='recetas']/li");
+
+            List<BusinessObjects.Recipe> list = recetaNodes.Count > 1 ? ExtractNormalLoop(recetaNodes) : ExtractFileWiseLoop(recetaNodes);
+            
+            return list;
+        }
+
+        private List<BusinessObjects.Recipe> ExtractFileWiseLoop(HtmlNodeCollection recetaNodes)
+        {
             var list = new List<BusinessObjects.Recipe>();
-            // debido a errores de parseo
-            var recetaNodes = htmlDoc.DocumentNode.SelectNodes("/li");
+            HtmlNode recetaNode = recetaNodes.SingleOrDefault(x => x.Name == "li");
+            while (recetaNode != null)
+            {
+                var item = PreprocessRecipe(recetaNode);
+
+                list.Add(item);
+
+                recetaNode = recetaNode.ChildNodes.SingleOrDefault(x => x.Name == "li");
+            }
+            return list;
+        }
+
+        private List<BusinessObjects.Recipe> ExtractNormalLoop(HtmlNodeCollection recetaNodes)
+        {
+            var list = new List<BusinessObjects.Recipe>();
             foreach (HtmlNode recetaNode in recetaNodes)
             {
 
                 string title = recetaNode.SelectSingleNode("article").SelectSingleNode("a").SelectSingleNode("header").SelectSingleNode("h1").InnerText;
                 string author = recetaNode.SelectSingleNode("article").SelectSingleNode("a").SelectSingleNode("header").SelectSingleNode("h2").InnerText;
-                
-                HtmlNode anchor = recetaNode.SelectSingleNode("article").SelectSingleNode("a");
-                HtmlNode imgNode = anchor.SelectSingleNode("img");
-                string image = string.Empty;
-                if (imgNode != null && imgNode.Attributes.Contains("src"))
-                    image = imgNode.Attributes["src"].Value;
-                string link = string.Empty;
-                if (anchor != null && anchor.Attributes.Contains("href"))
-                    link = anchor.Attributes["href"].Value;
 
-                var item = new BusinessObjects.Recipe
-                {
-                    Author = author.Replace("Por: ",string.Empty),
-                    Title = title,
-                    ImageUrl = image,
-                    LinkUrl = link
-                };
-                DateTime now = DateTime.Now;
-                Debug.WriteLine("----> Translate Started at {0}", now);
-                TranslateRecipeMicrosoft(item);
-                TimeSpan span = DateTime.Now.Subtract(now);
-                Debug.WriteLine("----> Translate Time Elapsed {0}", span.ToString());
+                var item = PreprocessRecipe(recetaNode);
 
                 list.Add(item);
-
-                //recetaNode = recetaNode.ChildNodes.SingleOrDefault(x => x.Name == "li");
             }
-            
             return list;
         }
 
+        private BusinessObjects.Recipe PreprocessRecipe(HtmlNode recetaNode)
+        {
+            string title = recetaNode.SelectSingleNode("article").SelectSingleNode("a").SelectSingleNode("header").SelectSingleNode("h1").InnerText;
+            string author = recetaNode.SelectSingleNode("article").SelectSingleNode("a").SelectSingleNode("header").SelectSingleNode("h2").InnerText;
+
+            HtmlNode anchor = recetaNode.SelectSingleNode("article").SelectSingleNode("a");
+            HtmlNode imgNode = anchor.SelectSingleNode("figure").SelectSingleNode("img");
+            string image = string.Empty;
+            if (imgNode != null && imgNode.Attributes.Contains("src"))
+                image = imgNode.Attributes["src"].Value;
+            string link = string.Empty;
+            if (anchor != null && anchor.Attributes.Contains("href"))
+                link = anchor.Attributes["href"].Value;
+
+            var item = new BusinessObjects.Recipe
+            {
+                Author = author.Replace("Por: ", string.Empty),
+                Title = title,
+                ImageUrl = image,
+                LinkUrl = link
+            };
+            DateTime now = DateTime.Now;
+            Debug.WriteLine("----> Translate Started at {0}", now);
+            TranslateRecipeMicrosoft(item);
+            TimeSpan span = DateTime.Now.Subtract(now);
+            Debug.WriteLine("----> Translate Time Elapsed {0}", span.ToString());
+            return item;
+        }
 
         private BusinessObjects.Recipe ConvertIntoRecipe(string doc)
         {
@@ -230,19 +266,39 @@ namespace Recipes.Provider
             {
                 StringBuilder sb = new StringBuilder();
                 var nodes = htmlDoc.DocumentNode.SelectNodes("//*[@id='mainContent']/div/section/div/div[2]/ul/li");
-                foreach (HtmlNode node in nodes)
+                if (nodes.Count > 1)
                 {
-                    var parags = node.SelectNodes("p");
-                    if (parags != null)
+                    foreach (HtmlNode node in nodes)
                     {
-                        foreach (var item in parags)
+                        var parags = node.SelectNodes("p");
+                        if (parags != null)
                         {
-                            string outText = HttpUtility.HtmlDecode(item.InnerText.Replace("\t", string.Empty));
-                            sb.Append(outText);
+                            foreach (var item in parags)
+                            {
+                                string outText = HttpUtility.HtmlDecode(item.InnerText.Replace("\t", string.Empty));
+                                sb.Append(outText);
+                            }
                         }
                     }
-                    //node = node.ChildNodes.SingleOrDefault(x => x.Name == "li");
                 }
+                else
+                {
+                    HtmlNode node = htmlDoc.DocumentNode.SelectSingleNode("//*[@id='mainContent']/div/section/div/div[2]/ul/li");
+                    while (node != null)
+                    {
+                        var parags = node.SelectNodes("p");
+                        if (parags != null)
+                        {
+                            foreach (var item in parags)
+                            {
+                                string outText = HttpUtility.HtmlDecode(item.InnerText.Replace("\t", string.Empty));
+                                sb.Append(outText);
+                            }
+                        }
+                        node = node.ChildNodes.SingleOrDefault(x => x.Name == "li");
+                    }
+                }
+
                 return sb.ToString();
             }
             throw new Exception("Procedure not found");

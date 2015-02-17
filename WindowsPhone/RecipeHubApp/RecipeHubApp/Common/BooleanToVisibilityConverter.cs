@@ -14,10 +14,16 @@ namespace RecipeHubApp
         {
             if (value != null)
             {
-                if ((bool)value)
-                    return Visibility.Collapsed;
+                string strValue = value.ToString();
+                bool boolValue = false;
+                if (bool.TryParse(strValue,out boolValue))
+                {
+                    return boolValue ? Visibility.Collapsed : Visibility.Visible;
+                }
                 else
-                    return Visibility.Visible;
+                {
+                    return string.IsNullOrEmpty(strValue) ? Visibility.Collapsed : Visibility.Visible;
+                }
             }
             else
             {

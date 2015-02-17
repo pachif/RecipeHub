@@ -1,6 +1,13 @@
 1.6 (Upcoming)
 - Add in configuration page the recipes engines
+- Add author recipes page
+- Add Offline recipes
+- Fix WP8 localization handling
 
+1.5.2
+- Fixes regarding parsing FOX PLAY recipes
+- Reformating de Procedure text
+- Internet Connection Detection
 
 1.5.1
 - Hot Fix cambio a foxplay

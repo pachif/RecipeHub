@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using RecipeHubApp.ViewModels;
 using Microsoft.Phone.Scheduler;
+using RecipeHubApp.Resources;
 
 namespace RecipeHubApp
 {
@@ -59,7 +60,7 @@ namespace RecipeHubApp
 
                 var task = new Alarm(alarm.AlarmName)
                 {
-                    Content = string.Format(RecipeHubApp.AppResx.AlarmContentKey, ViewModel.CurrentRecipe.Title, alarm.AlarmName),
+                    Content = string.Format(AppResx.AlarmContentKey, ViewModel.CurrentRecipe.Title, alarm.AlarmName),
                     RecurrenceType = RecurrenceInterval.None,
                     Sound = new Uri("alarm-ring.wma", UriKind.Relative)
                 };

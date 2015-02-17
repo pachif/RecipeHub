@@ -1,4 +1,6 @@
 ﻿
+using RecipeHubApp.Resources;
+
 namespace RecipeHubApp
 {
     public class ApplicationResx

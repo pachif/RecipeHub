@@ -50,7 +50,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Panorama control-->
-        <controls:Panorama Title="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.AppNameKey}" Name="panorama" SelectionChanged="panorama_SelectionChanged">
+        <controls:Panorama Title="{Binding Source={StaticResource LocalizedResx}, Path=LocalizedStrings.ApplicationTitle}" Name="panorama" SelectionChanged="panorama_SelectionChanged">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="PanoramaBackground.png" Opacity="0.5"/>
             </controls:Panorama.Background>

@@ -17,7 +17,7 @@
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
-	es-ES;es
+	es;fr
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
@@ -84,15 +84,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppResx.Designer.cs">
+    <Compile Include="Resources\AppResx.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResx.resx</DependentUpon>
-    </Compile>
-    <Compile Include="AppResx.es-ES.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AppResx.es-ES.resx</DependentUpon>
     </Compile>
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\InverseVisibilityConverter.cs" />
@@ -109,6 +104,16 @@
       <DependentUpon>RecipeDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\CommandBase.cs" />
+    <Compile Include="Resources\AppResx.es.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResx.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\AppResx.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResx.fr.resx</DependentUpon>
+    </Compile>
     <Compile Include="SampleData\IngredientsDataSource\IngredientsDataSource.xaml.cs">
       <DependentUpon>IngredientsDataSource.xaml</DependentUpon>
     </Compile>
@@ -194,11 +199,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AppResx.es-ES.resx">
+    <EmbeddedResource Include="Resources\AppResx.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResx.es-ES.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResx.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="AppResx.resx">
+    <EmbeddedResource Include="Resources\AppResx.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResx.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AppResx.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResx.Designer.cs</LastGenOutput>
     </EmbeddedResource>

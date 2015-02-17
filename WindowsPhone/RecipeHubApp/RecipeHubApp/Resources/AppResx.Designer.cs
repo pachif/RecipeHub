@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RecipeHubApp {
+namespace RecipeHubApp.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace RecipeHubApp {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RecipeHubApp.AppResx", typeof(AppResx).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RecipeHubApp.Resources.AppResx", typeof(AppResx).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -135,18 +135,9 @@ namespace RecipeHubApp {
         /// <summary>
         ///   Looks up a localized string similar to Recipe Hub.
         /// </summary>
-        public static string AppNameKey {
+        public static string ApplicationTitle {
             get {
-                return ResourceManager.GetString("AppNameKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recipe Hub.
-        /// </summary>
-        public static string AppTitleKey {
-            get {
-                return ResourceManager.GetString("AppTitleKey", resourceCulture);
+                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
             }
         }
         
@@ -300,6 +291,24 @@ namespace RecipeHubApp {
         public static string RecipesKey {
             get {
                 return ResourceManager.GetString("RecipesKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LeftToRight.
+        /// </summary>
+        public static string ResourceFlowDirection {
+            get {
+                return ResourceManager.GetString("ResourceFlowDirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to en.
+        /// </summary>
+        public static string ResourceLanguange {
+            get {
+                return ResourceManager.GetString("ResourceLanguange", resourceCulture);
             }
         }
         

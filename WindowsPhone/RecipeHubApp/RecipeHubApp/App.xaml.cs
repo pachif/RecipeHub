@@ -15,6 +15,7 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Marketplace;
 using BugSense;
 using System.Diagnostics;
+using RecipeHubApp.Resources;
 
 namespace RecipeHubApp
 {
