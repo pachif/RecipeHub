@@ -128,14 +128,14 @@
                 </controls:PivotItem>
             </controls:Pivot>
             <rotator:AdRotatorControl Name="adRotatorControl1"
-                                      SettingsUrl="http://www.intersysweb.com/conf/defaultAdSettings.xml"
-                                        DefaultSettingsFileUri="/RecipeHubApp;component/defaultAdSettings.xml"
-                                        VerticalAlignment="Bottom"
-                                        SlidingAdDirection="Bottom"
-                                        SlidingAdDisplaySeconds="10"
-                                        SlidingAdHiddenSeconds="5"
-                                        Width="480"
-                                        Height="80"  />
+                                      RemoteSettingsLocation="http://www.intersysweb.com/conf/defaultAdSettings.xml"
+                                      LocalSettingsLocation="/RecipeHubApp;component/defaultAdSettings.xml"
+                                      VerticalAlignment="Bottom"
+                                      SlidingAdDirection="Bottom"
+                                      SlidingAdDisplaySeconds="10"
+                                      SlidingAdHiddenSeconds="5"
+                                      Width="480" Height="80" 
+                                        />
             <!--<adv:AdControl ApplicationId="88cab8ab-34af-42b3-a44e-aa2c9921169f" AdUnitId="10336862" Height="80" Width="480" VerticalAlignment="Bottom" ErrorOccurred="AdControl_ErrorOccurred" AdRefreshed="AdControl_AdRefreshed" />-->
         </Grid>
     </Grid>

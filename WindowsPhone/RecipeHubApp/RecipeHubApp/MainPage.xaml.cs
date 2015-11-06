@@ -108,10 +108,10 @@ namespace RecipeHubApp
             App.UpdateVisitHistory(ivm);
 
             string url = string.Format("Following Page was requested --> /RecipeDetailPage.xaml?detail={0}", ivm.RecipeLink);
-            BugSense.BugSenseHandler.Instance.SendEvent(url);
+            BugSense.BugSenseHandler.Instance.LogEvent(url);
 
             //- Navigate to Page
-            string query = string.Format("/RecipeDetailPage.xaml?detail={0}", ivm.RecipeLink);
+            string query = string.Format("/Pages/RecipeDetailPage.xaml?detail={0}", ivm.RecipeLink);
             var uri = new Uri(query, UriKind.Relative);
             NavigationService.Navigate(uri);
         }
@@ -129,7 +129,7 @@ namespace RecipeHubApp
 
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/ConfigPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Pages/ConfigPage.xaml", UriKind.Relative));
         }
 
         private void review_Click(object sender, EventArgs e)

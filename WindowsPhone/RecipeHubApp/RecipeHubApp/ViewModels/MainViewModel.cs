@@ -79,7 +79,7 @@ namespace RecipeHubApp
         {
             ProgressVisibility = Visibility.Visible;
             string url = string.Format("Following search was performed --> search={0}", SearchText);
-            BugSenseHandler.Instance.SendEvent(url);
+            BugSenseHandler.Instance.LogEvent(url);
             provider.SearchRecipeByName(SearchText);
             provider.ProcessEnded += SearchProcessEndedHandler;
         }
@@ -149,7 +149,7 @@ namespace RecipeHubApp
             else if (e.Result is Exception)
             {
                 var ex = ((Exception)e.Result);
-                BugSenseHandler.Instance.SendException(ex);
+                BugSenseHandler.Instance.LogException(ex);
                 string msg = ex.Message;
                 MessageBox.Show(msg, "Error", MessageBoxButton.OK);
             }

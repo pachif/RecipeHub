@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using BugSense;
+using BugSense.Core.Model;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Microsoft.Phone.Marketplace;
-using BugSense;
-using System.Diagnostics;
 using RecipeHubApp.Resources;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows;
+using System.Windows.Navigation;
 
 namespace RecipeHubApp
 {
@@ -74,7 +66,7 @@ namespace RecipeHubApp
 
             // Phone-specific initialization
             InitializePhoneApplication();
-            BugSenseHandler.Instance.InitAndStartSession(this, "e9243712");
+            BugSenseHandler.Instance.InitAndStartSession(new ExceptionManager(this), RootFrame, "e9243712");
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -123,7 +115,7 @@ namespace RecipeHubApp
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
-            BugSenseHandler.Instance.SendException(e.ExceptionObject);
+            BugSenseHandler.Instance.LogException(e.ExceptionObject);
             System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() => MessageBox.Show(AppResx.ProblemServerKey));
             Debug.WriteLine(e.ExceptionObject);
             if (Debugger.IsAttached)
